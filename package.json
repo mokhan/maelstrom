@@ -4,7 +4,7 @@
   "description": "MAELSTROM       =========",
   "main": "index.js",
   "scripts": {
-    "lint": "jshint **.js",
+    "lint": "jshint js/*.js",
     "test": "jasmine",
     "test:watch": "npm run test -- -w",
     "env": "env",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/8bitreverie/maelstrom",
   "devDependencies": {
-    "jasmine": "^2.1.1"
+    "jasmine": "^2.1.1",
+    "jshint": "^2.5.10"
   }
 }
