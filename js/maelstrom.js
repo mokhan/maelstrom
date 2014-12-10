@@ -107,7 +107,7 @@ Level.prototype.garbageCollect = function() {
 
   this.garbageSize = 0;
 
-}
+};
 
 Level.prototype.update = function() {
 
@@ -191,7 +191,7 @@ Level.prototype.detectsCollisionBetween = function(gameObject1, gameObject2) {
   }else{
     return false;
   }
-}
+};
 
 Level.prototype.render = function() {
 
@@ -232,7 +232,7 @@ function Maelstrom(levelArray, width, height) {
   this.levelArray = levelArray;
   this.currentLevel = 0;
 
-};
+}
 
 Maelstrom.prototype.init = function() {
 
@@ -295,7 +295,7 @@ var View = {
     this.hMidpoint = height/2;
     this.doc.body.appendChild(this.canvas);
   }
-}
+};
 
 /*
  * Keyboard input class
@@ -373,8 +373,8 @@ var Sound = {
         source.connect(context.destination);          // connect the source to the context's destination
         source.start(0);                              // play the source now
       }, onError);
-    }
+    };
     request.send();
   }
 
-}
+};

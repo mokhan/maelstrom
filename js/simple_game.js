@@ -89,15 +89,14 @@
 
         //Rotation
         this.rotation += this.rotateSpeed;
-
-    }
+    };
 
     //TODO: Move this into an init()
     enemiesArray[i].sprite         = new Image();
     enemiesArray[i].sprite.src     = 'sprites/enemy.bmp';
     enemiesArray[i].direction      = toRadians(randomIntFromRange(70,90));
     enemiesArray[i].speed          = randomIntFromRange(1,2);
-    enemiesArray[i].position.y     = randomIntFromRange(0,screenHeight);;
+    enemiesArray[i].position.y     = randomIntFromRange(0,screenHeight);
     enemiesArray[i].position.x     = randomIntFromRange(0,screenWidth);
 
     enemiesArray[i].width          = randomIntFromRange(6, 10);
@@ -155,7 +154,7 @@
 
           }
 
-        }
+        };
 
         bullet.width = 5;
         bullet.height = 5;
