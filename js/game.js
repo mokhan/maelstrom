@@ -8,8 +8,9 @@ Game.prototype.add = function(command) {
 
 Game.prototype.run = function(){
   var that = this;
-  while (this.commands.length > 0) {
-    var nextCommand = this.commands.shift();
+  var currentBatchOfCommands = this.commands.slice(0);
+  while (currentBatchOfCommands.length > 0) {
+    var nextCommand = currentBatchOfCommands.shift();
     nextCommand(that);
   }
 };

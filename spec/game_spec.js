@@ -27,7 +27,7 @@ describe("Game", function(){
       expect(args).toEqual(subject);
     });
 
-    it("allows a command to queue another command to run", function() {
+    it("allows a command to queue another command to run in the next batch", function() {
       var wasRun = false;
       var secondCommand = function(game) {
         wasRun = true;
@@ -38,6 +38,8 @@ describe("Game", function(){
       };
 
       subject.add(firstCommand);
+      subject.run();
+      expect(wasRun).toEqual(false);
 
       subject.run();
       expect(wasRun).toEqual(true);
