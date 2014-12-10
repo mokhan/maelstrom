@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "jshint **.js",
-    "test": "mocha test/",
+    "test": "jasmine",
     "test:watch": "npm run test -- -w",
     "env": "env",
-
     "pretest": "npm run lint"
   },
   "repository": {
@@ -20,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/8bitreverie/maelstrom/issues"
   },
-  "homepage": "https://github.com/8bitreverie/maelstrom"
+  "homepage": "https://github.com/8bitreverie/maelstrom",
+  "devDependencies": {
+    "jasmine": "^2.1.1"
+  }
 }
