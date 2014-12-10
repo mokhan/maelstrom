@@ -6,9 +6,7 @@
   "scripts": {
     "lint": "jshint js/*.js",
     "test": "jasmine",
-    "test:watch": "npm run test -- -w",
-    "env": "env",
-    "pretest": "npm run lint"
+    "env": "env"
   },
   "repository": {
     "type": "git",
