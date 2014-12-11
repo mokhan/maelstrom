@@ -4,6 +4,13 @@
   "description": "MAELSTROM       =========",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -fr dist/",
+
+    "prebuild": "npm run clean && mkdir -p dist",
+    "build": "npm run build:js && npm run build:html",
+    "build:js": "browserify js/index.js > dist/index.min.js",
+    "build:html": "cp *.html dist/",
+
     "lint": "jshint js/*.js",
     "test": "jasmine",
     "env": "env"
@@ -19,7 +26,8 @@
   },
   "homepage": "https://github.com/8bitreverie/maelstrom",
   "devDependencies": {
-    "jasmine": "^2.1.1",
-    "jshint": "^2.5.10"
+    "browserify": "latest",
+    "jasmine": "latest",
+    "jshint": "latest"
   }
 }
