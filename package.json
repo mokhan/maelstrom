@@ -6,10 +6,11 @@
   "scripts": {
     "clean": "rm -fr dist/",
 
-    "prebuild": "npm run clean && mkdir -p dist",
-    "build": "npm run build:js && npm run build:html",
-    "build:js": "browserify js/index.js > dist/index.min.js",
+    "prebuild": "npm run clean && mkdir -p dist/js dist/css",
+    "build": "npm run build:js && npm run build:html && npm run build:css",
+    "build:js": "browserify js/index.js > dist/js/index.js",
     "build:html": "cp *.html dist/",
+    "build:css": "cp css/*.css dist/css",
 
     "lint": "jshint js/*.js",
     "test": "jasmine",
