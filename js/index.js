@@ -4,6 +4,8 @@ var World = require('./World.js');
 _ = require('underscore');
 
 var game = new Game();
+var world = new World().bindTo(document);
+
 game.add(new Clock(window).run);
-game.add(new World(window, document).run);
+game.add(world.run);
 game.run();

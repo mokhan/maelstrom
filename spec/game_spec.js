@@ -1,5 +1,5 @@
 describe("Game", function(){
-  var Game = require('../js/Game.js');
+  var Game = require('../js/game.js');
   var subject;
 
   beforeEach(function(){
