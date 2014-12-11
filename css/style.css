@@ -1,9 +1,9 @@
 body {
-    text-align: center;
-    background-color: white;
+  text-align: center;
+  background-color: #ccc;
 }
 
 canvas {
-    border: 1px solid;
+  border: 1px solid;
 }
 

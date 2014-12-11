@@ -1,6 +1,6 @@
 function World(){
   this.props = [];
-  _.bindAll(this, 'run');
+  _.bindAll(this, 'add', 'bindTo', 'draw', 'run');
 }
 
 World.prototype.add = function(prop) {
@@ -8,11 +8,14 @@ World.prototype.add = function(prop) {
 };
 
 World.prototype.bindTo = function(document) {
-  var canvas = document.createElement('canvas');
-  canvas.width = canvas.height = 256;
-  var context = canvas.getContext('2d');
-  document.body.appendChild(canvas);
+  this.canvas = document.createElement('canvas');
+  this.canvas.width = this.canvas.height = 512;
+  document.body.appendChild(this.canvas);
   return this;
+};
+
+World.prototype.draw = function(callback) {
+  callback(this.canvas.getContext('2d'));
 };
 
 World.prototype.run = function(game){

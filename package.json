@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -fr dist/",
-    "prebuild": "npm run clean && mkdir -p dist/js dist/css",
-    "build": "npm run build:js && npm run build:html && npm run build:css",
+    "prebuild": "npm run clean && mkdir -p dist/js dist/css dist/img",
+    "build": "npm run build:js && npm run build:html && npm run build:css && npm run build:img",
     "build:js": "browserify js/index.js > dist/js/index.js",
     "build:html": "cp *.html dist/",
     "build:css": "cp css/*.css dist/css",
+    "build:img": "cp img/* dist/img/",
     "lint": "jshint js/*.js",
     "test": "jasmine",
     "env": "env"
