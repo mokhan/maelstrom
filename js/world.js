@@ -1,9 +1,6 @@
 function World(){
   this.props = [];
   this.height = this.width = 512;
-  this.wMidpoint = this.width/2;
-  this.hMidpoint = this.height/2;
-  this.x = 100;
   _.bindAll(this, 'add', 'bindTo', 'draw', 'run');
 }
 
@@ -26,6 +23,7 @@ World.prototype.draw = function(callback) {
 
 World.prototype.run = function(game){
   var that = this;
+  this.clearCanvas();
   _.each(this.props, function(prop){
     prop.redrawOn(that);
   });

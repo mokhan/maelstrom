@@ -33,5 +33,11 @@ describe("World", function(){
 
       expect(game.add).toHaveBeenCalledWith(subject.run);
     });
+
+    it ("clears the canvas", function() {
+      subject.run(game);
+
+      expect(subject.clearCanvas).toHaveBeenCalled();
+    });
   });
 });
