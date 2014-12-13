@@ -1,4 +1,4 @@
-function Asteroid(){
+function Monster(){
   this.position = {
     x: this.randomIntFromRange(0, 512),
     y: this.randomIntFromRange(0, 512),
@@ -15,7 +15,7 @@ function Asteroid(){
   _.bindAll(this, 'redrawOn');
 }
 
-Asteroid.prototype.redrawOn = function(world) {
+Monster.prototype.redrawOn = function(world) {
   var that = this;
   world.draw(function(view) {
     if (that.position.y > world.height || that.position.x > world.width) {
@@ -36,16 +36,16 @@ Asteroid.prototype.redrawOn = function(world) {
   });
 };
 
-Asteroid.prototype.randomIntFromRange = function(min, max) {
+Monster.prototype.randomIntFromRange = function(min, max) {
   return Math.floor(Math.random()*(max-min+1)+min);
 };
 
-Asteroid.prototype.toRadians = function(angle) {
+Monster.prototype.toRadians = function(angle) {
   return angle * (Math.PI/180);
 };
 
-Asteroid.prototype.randomFloatFromRange = function(min, max) {
+Monster.prototype.randomFloatFromRange = function(min, max) {
   return Math.random() * (max - min) + min;
 };
 
-module.exports = Asteroid;
+module.exports = Monster;
