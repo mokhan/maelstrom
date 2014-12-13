@@ -32,11 +32,7 @@ Asteroid.prototype.redrawOn = function(world) {
     that.position.y += that.velocity.y;
     that.rotation += 0.01;
 
-    view.save();
-    //view.translate(that.position.x + that.width/2, that.position.y + that.height/2);
-    //view.rotate(that.rotation/Math.PI*180);
     view.drawImage(that.sprite, that.position.x, that.position.y);
-    view.restore();
   });
 };
 
