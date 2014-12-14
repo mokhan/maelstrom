@@ -10,12 +10,7 @@ _ = require('underscore');
 var world = new World().bindTo(document);
 
 for (var i = 0; i < 10; i ++) {
-  var coordinate = new Coordinate({
-    x: Utility.randomIntFromRange(0, 512),
-    y: Utility.randomIntFromRange(0, 512),
-    direction: 0
-  });
-
+  var coordinate = new Coordinate();
   world.add(new Monster(coordinate, new Sprite('img/enemy.bmp')));
 }
 

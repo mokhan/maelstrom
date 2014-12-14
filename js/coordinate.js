@@ -1,8 +1,17 @@
+var Utility = require('./utility.js');
+
 function Coordinate(options){
-  this.x = options.x;
-  this.y = options.y;
-  this.direction = options.direction;
-  _.bindAll(this, 'forward');
+  _.bindAll(this, 'forward', 'randomDirection');
+  if (options) {
+    this.x = options.x;
+    this.y = options.y;
+    this.direction = options.direction;
+  }
+  else {
+    this.x = Utility.randomIntFromRange(0, 512);
+    this.y = Utility.randomIntFromRange(0, 512);
+    this.direction = this.randomDirection();
+  }
 }
 
 Coordinate.prototype.forward = function(world, speed) {
@@ -21,6 +30,10 @@ Coordinate.prototype.forward = function(world, speed) {
   if (this.y > world.height) {
     this.y = this.y - world.height - 1;
   }
+};
+
+Coordinate.prototype.randomDirection = function() {
+  return Utility.toRadians(Utility.randomIntFromRange(70,90));
 };
 
 module.exports = Coordinate;
