@@ -3,6 +3,7 @@ var Clock = require('./clock.js');
 var World = require('./world.js');
 var Monster = require('./monster.js');
 var Coordinate = require('./coordinate.js');
+var Sprite = require('./sprite.js');
 var Utility = require('./utility.js');
 _ = require('underscore');
 
@@ -15,7 +16,7 @@ for (var i = 0; i < 10; i ++) {
     direction: 0
   });
 
-  world.add(new Monster(coordinate));
+  world.add(new Monster(coordinate, new Sprite('img/enemy.bmp')));
 }
 
 var game = new Game();
