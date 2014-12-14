@@ -6,7 +6,7 @@ describe("Coordinate", function(){
     var world;
 
     beforeEach(function(){
-      world = {width: 100, height: 100};
+      world = { width: 100, height: 100 };
     });
 
     describe ("when heading north", function() {

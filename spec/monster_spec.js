@@ -1,14 +1,19 @@
+var Monster = require("../js/monster.js");
 describe ("Monster", function() {
-  var Monster = require("../js/monster.js");
   var subject;
+  var sprite;
 
   beforeEach(function(){
-    subject = new Monster();
+    //subject = new Monster(sprite);
   });
 
-  describe ("move", function() {
-    it ("moves forward", function() {
-      
+  describe("nextMove", function() {
+    describe("when heading north", function(){
+      it ("moves one space up", function() {
+        //subject.position = {x: 100, y: 100};
+        //subject.nextMove(world);
+        //expect(subject.position.x).toEqual(99);
+      });
     });
   });
 });
