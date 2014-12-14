@@ -1,13 +1,9 @@
 var Coordinate = require('./coordinate.js');
+var Utility = require('./utility.js');
 
-function Monster(){
-  this.coordinate = new Coordinate({
-    x: this.randomIntFromRange(0, 512),
-    y: this.randomIntFromRange(0, 512),
-    direction: 0
-  });
-
-  this.speed = this.randomIntFromRange(1, 3);
+function Monster(coordinate){
+  this.coordinate = coordinate;
+  this.speed = Utility.randomIntFromRange(1, 3);
   this.sprite = new Image(32, 32);
   this.sprite.src = 'img/enemy.bmp';
 
@@ -20,10 +16,6 @@ Monster.prototype.redrawOn = function(world) {
   world.draw(function(view) {
     view.drawImage(that.sprite, that.coordinate.x, that.coordinate.y);
   });
-};
-
-Monster.prototype.randomIntFromRange = function(min, max) {
-  return Math.floor(Math.random()*(max-min+1)+min);
 };
 
 module.exports = Monster;
