@@ -2,7 +2,7 @@ describe("Coordinate", function(){
   var Coordinate = require('../js/coordinate.js');
   var subject;
 
-  describe("advance", function(){
+  describe("forward", function(){
     var world;
 
     beforeEach(function(){
@@ -14,7 +14,7 @@ describe("Coordinate", function(){
         subject = new Coordinate({x: 100, y: 100, direction: (Math.PI / 2) * -1 });
         speed = 1;
 
-        subject.advance(world, speed);
+        subject.forward(world, speed);
 
         expect(subject.x).toEqual(100);
         expect(subject.y).toEqual(99);
@@ -26,7 +26,7 @@ describe("Coordinate", function(){
         subject = new Coordinate({x: 100, y: 100, direction: 0});
         speed = 1;
 
-        subject.advance(world, speed);
+        subject.forward(world, speed);
 
         expect(subject.x).toEqual(101);
         expect(subject.y).toEqual(100);
@@ -38,7 +38,7 @@ describe("Coordinate", function(){
         subject = new Coordinate({x: 100, y: 100, direction: Math.PI });
         speed = 1;
 
-        subject.advance(world, speed);
+        subject.forward(world, speed);
 
         expect(subject.x).toEqual(99);
         expect(subject.y).toEqual(100);
@@ -50,7 +50,7 @@ describe("Coordinate", function(){
         subject = new Coordinate({x: 100, y: 100, direction: Math.PI / 2 });
         speed = 1;
 
-        subject.advance(world, speed);
+        subject.forward(world, speed);
 
         expect(subject.x).toEqual(100);
         expect(subject.y).toEqual(101);
