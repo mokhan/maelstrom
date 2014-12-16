@@ -36,7 +36,7 @@ World.prototype.clearCanvas = function() {
 
 World.prototype.render = function(sprite) {
   this.draw(function(view) {
-    view.drawImage(sprite.image, sprite.x(), sprite.y());
+    sprite.drawOn(view);
   });
 };
 
