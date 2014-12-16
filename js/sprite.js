@@ -5,8 +5,16 @@ function Sprite(uri, coordinate) {
   this.coordinate = coordinate;
 }
 
-Sprite.prototype.moveForward = function(world, atSpeed) {
-  this.coordinate.forward(world, atSpeed);
+Sprite.prototype.moveForward = function(world, speed) {
+  this.coordinate.forward(world, speed);
+};
+
+Sprite.prototype.rotateLeft = function(speed) {
+  this.coordinate.rotateLeft(speed);
+};
+
+Sprite.prototype.rotateRight = function(speed) {
+  this.coordinate.rotateRight(speed);
 };
 
 Sprite.prototype.drawOn = function(canvas) {

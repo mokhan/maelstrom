@@ -6,7 +6,11 @@ var Coordinate = require('./coordinate.js');
 var Sprite = require('./sprite.js');
 var Rocketship = require('./rocketship.js');
 var Utility = require('./utility.js');
+var Keyboard = require('./keyboard.js');
 _ = require('underscore');
+
+window.addEventListener('keyup', function(event) { Keyboard.onKeyup(event); }, false);
+window.addEventListener('keydown', function(event) { Keyboard.onKeydown(event); }, false);
 
 var world = new World().bindTo(document);
 

@@ -2,7 +2,7 @@ describe("Coordinate", function(){
   var Coordinate = require('../js/coordinate.js');
   var subject;
 
-  describe("forward", function(){
+  describe("forward", function() {
     var world;
 
     beforeEach(function(){
@@ -10,8 +10,10 @@ describe("Coordinate", function(){
     });
 
     describe ("when heading north", function() {
+      var NORTH = (Math.PI / 2) * - 1;
+
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 100, direction: (Math.PI / 2) * -1 });
+        subject = new Coordinate({x: 100, y: 100, direction: NORTH });
         speed = 1;
 
         subject.forward(world, speed);
@@ -21,7 +23,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 100, y: 0, direction: (Math.PI / 2) * -1 });
+        subject = new Coordinate({ x: 100, y: 0, direction: NORTH });
         speed = 1;
 
         subject.forward(world, speed);
@@ -32,8 +34,10 @@ describe("Coordinate", function(){
     });
 
     describe ("when heading east", function() {
+      var SOUTH = 0;
+
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 50, y: 50, direction: 0});
+        subject = new Coordinate({x: 50, y: 50, direction: SOUTH});
         speed = 1;
 
         subject.forward(world, speed);
@@ -43,7 +47,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({x: 100, y: 100, direction: 0});
+        subject = new Coordinate({x: 100, y: 100, direction: SOUTH});
         speed = 1;
 
         subject.forward(world, speed);
@@ -54,8 +58,10 @@ describe("Coordinate", function(){
     });
 
     describe ("when heading west", function() {
+      var WEST = Math.PI;
+
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 100, direction: Math.PI });
+        subject = new Coordinate({x: 100, y: 100, direction: WEST });
         speed = 1;
 
         subject.forward(world, speed);
@@ -65,7 +71,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 0, y: 100, direction: Math.PI });
+        subject = new Coordinate({ x: 0, y: 100, direction: WEST });
         speed = 1;
 
         subject.forward(world, speed);
@@ -76,8 +82,9 @@ describe("Coordinate", function(){
     });
 
     describe ("when heading south", function() {
+      var SOUTH = Math.PI / 2;
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 50, direction: Math.PI / 2 });
+        subject = new Coordinate({x: 100, y: 50, direction: SOUTH });
         speed = 1;
 
         subject.forward(world, speed);
@@ -87,7 +94,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 100, y: 100, direction: Math.PI / 2 });
+        subject = new Coordinate({ x: 100, y: 100, direction: SOUTH });
         speed = 1;
 
         subject.forward(world, speed);
@@ -95,6 +102,20 @@ describe("Coordinate", function(){
         expect(subject.x).toEqual(100);
         expect(subject.y).toEqual(0);
       });
+    });
+  });
+
+  describe ("rotateLeft", function() {
+    var NORTH = (Math.PI / 2) * - 1;
+
+    it ("rotates to the left", function() {
+      subject = new Coordinate({ x: 50, y: 50, direction: NORTH });
+      speed = 1;
+      subject.rotateLeft(speed);
+
+      expect(subject.direction).toEqual(50);
+      expect(subject.x).toEqual(50);
+      expect(subject.y).toEqual(50);
     });
   });
 });
