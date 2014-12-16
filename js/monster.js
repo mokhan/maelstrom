@@ -1,4 +1,3 @@
-var Coordinate = require('./coordinate.js');
 var Utility = require('./utility.js');
 
 function Monster(coordinate, sprite){
