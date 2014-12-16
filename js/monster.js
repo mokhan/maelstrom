@@ -8,7 +8,7 @@ function Monster(sprite){
 }
 
 Monster.prototype.redrawOn = function(world) {
-  this.sprite.coordinate.forward(world, this.speed);
+  this.sprite.moveForward(world, this.speed);
   world.render(this.sprite);
 };
 

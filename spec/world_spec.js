@@ -40,4 +40,19 @@ describe("World", function(){
       expect(subject.clearCanvas).toHaveBeenCalled();
     });
   });
+
+  describe ("render", function() {
+    var canvas = {};
+    var sprite = { drawOn: function(){} };
+
+    beforeEach(function(){
+      subject.canvasContext = canvas;
+      spyOn(sprite, 'drawOn');
+    });
+
+    it('draws the sprite on the canvas', function(){
+      subject.render(sprite);
+      expect(sprite.drawOn).toHaveBeenCalledWith(canvas);
+    });
+  });
 });
