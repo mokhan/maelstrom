@@ -1,7 +1,6 @@
 var Utility = require('./utility.js');
 
-function Monster(coordinate, sprite){
-  this.coordinate = coordinate;
+function Monster(sprite){
   this.speed = Utility.randomIntFromRange(1, 3);
   this.sprite = sprite;
 
@@ -9,11 +8,8 @@ function Monster(coordinate, sprite){
 }
 
 Monster.prototype.redrawOn = function(world) {
-  var that = this;
-  this.coordinate.forward(world, this.speed);
-  world.draw(function(view) {
-    view.drawImage(that.sprite.image, that.coordinate.x, that.coordinate.y);
-  });
+  this.sprite.coordinate.forward(world, this.speed);
+  world.render(this.sprite);
 };
 
 module.exports = Monster;

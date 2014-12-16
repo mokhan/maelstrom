@@ -2,19 +2,19 @@ var Monster = require("../js/monster.js");
 
 describe ("Monster", function() {
   var subject;
-  var sprite = {};
-  var coordinate = { forward: function(){ }, draw: function(){} };
+  var coordinate = { forward: function(){ }, render: function(){} };
+  var sprite = { coordinate: coordinate };
 
   beforeEach(function(){
-    subject = new Monster(coordinate, sprite);
+    subject = new Monster(sprite);
   });
 
   describe("redrawOn", function() {
-    var world = {draw: function(){}};
+    var world = { render: function(){} };
 
     beforeEach(function(){
       spyOn(coordinate, 'forward');
-      spyOn(world, 'draw');
+      spyOn(world, 'render');
     });
 
     it ("moves forward", function() {
@@ -26,7 +26,7 @@ describe ("Monster", function() {
     it ("draws the current position on the canvas", function() {
       subject.redrawOn(world);
 
-      expect(world.draw).toHaveBeenCalled();
+      expect(world.render).toHaveBeenCalledWith(sprite);
     });
   });
 });

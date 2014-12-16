@@ -1,8 +1,4 @@
-var Coordinate = require('./coordinate.js');
-var Sprite = require('./sprite.js');
-
-function Rocketship(coordinate, sprite){
-  this.coordinate = coordinate;
+function Rocketship(sprite){
   this.sprite = sprite;
   this.applyThrust = false;
   this.speed = 0.1;
@@ -11,11 +7,8 @@ function Rocketship(coordinate, sprite){
 }
 
 Rocketship.prototype.redrawOn = function(world) {
-  var that = this;
-  this.coordinate.forward(world, this.speed);
-  world.draw(function(view) {
-    view.drawImage(that.sprite.image, that.coordinate.x, that.coordinate.y);
-  });
+  this.sprite.coordinate.forward(world, this.speed);
+  world.render(this.sprite);
 };
 
 module.exports = Rocketship;

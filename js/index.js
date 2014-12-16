@@ -11,10 +11,9 @@ _ = require('underscore');
 var world = new World().bindTo(document);
 
 for (var i = 0; i < 10; i ++) {
-  var coordinate = new Coordinate();
-  world.add(new Monster(coordinate, new Sprite('img/enemy.bmp')));
+  world.add(new Monster(new Sprite('img/enemy.bmp', new Coordinate())));
 }
-world.add(new Rocketship(new Coordinate({x: 250, y: 250, direction: 0}), new Sprite("img/player.bmp")));
+world.add(new Rocketship(new Sprite("img/player.bmp", new Coordinate({x: 250, y: 250, direction: 0}))));
 
 var game = new Game();
 game.add(new Clock(window).run);

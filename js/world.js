@@ -1,7 +1,7 @@
 function World(){
   this.props = [];
   this.height = this.width = 512;
-  _.bindAll(this, 'add', 'bindTo', 'draw', 'run');
+  _.bindAll(this, 'add', 'bindTo', 'draw', 'run', 'render');
 }
 
 World.prototype.add = function(prop) {
@@ -32,6 +32,12 @@ World.prototype.run = function(game){
 
 World.prototype.clearCanvas = function() {
   this.canvasContext.clearRect(0, 0, this.width, this.height);
+};
+
+World.prototype.render = function(sprite) {
+  this.draw(function(view) {
+    view.drawImage(sprite.image, sprite.x(), sprite.y());
+  });
 };
 
 module.exports = World;
