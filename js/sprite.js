@@ -6,7 +6,7 @@ function Sprite(uri, coordinate) {
 }
 
 Sprite.prototype.moveForward = function(world, atSpeed) {
-  this.coordinate.forward(world, speed);
+  this.coordinate.forward(world, atSpeed);
 };
 
 Sprite.prototype.drawOn = function(canvas) {
