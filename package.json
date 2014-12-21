@@ -13,7 +13,8 @@
     "build:img": "cp img/* dist/img/",
     "lint": "jshint js/*.js",
     "test": "jasmine",
-    "env": "env"
+    "env": "env",
+    "server": "ruby -run -e httpd dist/ -p 9090"
   },
   "repository": {
     "type": "git",
