@@ -1,6 +1,3 @@
-var Utility = require('./utility.js');
-var Heading = require('./heading.js');
-
 function Coordinate(options){
   _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight');
   this.x = options.x;
@@ -27,9 +24,9 @@ Coordinate.prototype.move = function(world, heading) {
   var x = this.x + (this.speed * Math.round(Math.cos(heading)));
   var y = this.y + (this.speed * Math.round(Math.sin(heading)));
 
-  if (y < 0) { y = world.height; }
   if (x < 0) { x = world.width; }
   if (x > world.width) { x = 0; }
+  if (y < 0) { y = world.height; }
   if (y > world.height) { y = 0; }
 
   return new Coordinate({x: x, y: y, heading: this.heading, speed: this.speed});
