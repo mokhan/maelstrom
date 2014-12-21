@@ -42,7 +42,7 @@ describe("World", function(){
   });
 
   describe ("render", function() {
-    var canvas = {};
+    var canvas = { save: function(){}, restore: function(){} };
     var sprite = { drawOn: function(){} };
 
     beforeEach(function(){

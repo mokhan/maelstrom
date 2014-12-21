@@ -22,13 +22,13 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 100, y: 0, direction: Heading.NORTH });
+        subject = new Coordinate({ x: 0, y: 0, direction: Heading.NORTH });
         speed = 1;
 
         subject.forward(world, speed);
 
-        expect(subject.x).toEqual(100);
-        expect(subject.y).toEqual(100);
+        expect(subject.x).toEqual(0);
+        expect(subject.y).toEqual(world.height);
       });
     });
 

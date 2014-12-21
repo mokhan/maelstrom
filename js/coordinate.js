@@ -16,20 +16,21 @@ function Coordinate(options){
 }
 
 Coordinate.prototype.forward = function(world, speed) {
-  this.x += (speed * Math.cos(this.direction));
+  this.x += (speed * Math.round(Math.cos(this.direction)));
   this.y += (speed * Math.sin(this.direction));
+  console.log(this.y);
 
   if (this.y < 0) {
-    this.y = world.height - this.y - 1;
+    this.y = world.height - this.y;
   }
   if (this.x < 0) {
-    this.x = world.width - this.x - 1;
+    this.x = world.width - this.x;
   }
   if (this.x > world.width) {
-    this.x = this.x - world.width - 1;
+    this.x = this.x - world.width;
   }
   if (this.y > world.height) {
-    this.y = this.y - world.height - 1;
+    this.y = this.y - world.height;
   }
 };
 
@@ -37,8 +38,6 @@ Coordinate.prototype.rotateLeft = function(world, speed) {
   //this.rotation = 45 * Math.PI / 180;
   this.rotation += 0.0001 * -1;
   this.direction -= 0.0001;
-  console.log('rotation ' + this.rotation);
-  console.log('direction ' + this.direction);
 };
 
 Coordinate.prototype.rotateRight = function(world, speed) {
