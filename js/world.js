@@ -28,6 +28,7 @@ World.prototype.run = function(game){
   _.each(this.props, function(prop){
     prop.redrawOn(that);
   });
+  this.detectCollisions();
   game.add(this.run);
 };
 
@@ -41,6 +42,10 @@ World.prototype.render = function(sprite) {
     sprite.drawOn(view);
     view.restore();
   });
+};
+
+World.prototype.detectCollisions = function() {
+  
 };
 
 module.exports = World;

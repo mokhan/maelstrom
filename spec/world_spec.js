@@ -15,6 +15,7 @@ describe("World", function(){
       spyOn(asteroid, 'redrawOn');
       spyOn(rocketship, 'redrawOn');
       spyOn(subject, 'clearCanvas');
+      spyOn(subject, 'detectCollisions');
       spyOn(game, 'add');
 
       subject.add(asteroid);
@@ -38,6 +39,12 @@ describe("World", function(){
       subject.run(game);
 
       expect(subject.clearCanvas).toHaveBeenCalled();
+    });
+
+    it ("detects collisions", function() {
+      subject.run(game);
+
+      expect(subject.detectCollisions).toHaveBeenCalled();
     });
   });
 
