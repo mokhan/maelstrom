@@ -17,11 +17,6 @@ Rocketship.prototype.redrawOn = function(world) {
     this.sprite.moveForward(world);
   }
 
-  console.log({
-    x: this.sprite.coordinate.x, 
-    y: this.sprite.coordinate.y, 
-    direction: this.sprite.coordinate.direction
-  });
   world.render(this.sprite);
 };
 
