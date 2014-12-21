@@ -9,21 +9,23 @@ function Coordinate(options){
 }
 
 Coordinate.prototype.forward = function(world, speed) {
-  this.x += (speed * Math.round(Math.cos(this.direction)));
-  this.y += (speed * Math.round(Math.sin(this.direction)));
+  var x = this.x + (speed * Math.round(Math.cos(this.direction)));
+  var y = this.y + (speed * Math.round(Math.sin(this.direction)));
 
-  if (this.y < 0) {
-    this.y = world.height;
+  if (y < 0) {
+    y = world.height;
   }
-  if (this.x < 0) {
-    this.x = world.width;
+  if (x < 0) {
+    x = world.width;
   }
-  if (this.x > world.width) {
-    this.x = 0;
+  if (x > world.width) {
+    x = 0;
   }
-  if (this.y > world.height) {
-    this.y = 0;
+  if (y > world.height) {
+    y = 0;
   }
+
+  return new Coordinate({x: x, y: y, direction: this.direction});
 };
 
 Coordinate.prototype.rotateLeft = function(world, speed) {
