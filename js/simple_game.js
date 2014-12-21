@@ -16,6 +16,15 @@
   var screenWidth  = 512;
   var screenHeight = 512;
 
+  /*Precache resources*/
+  Cache.loadImage("asteroid", "sprites/enemy.bmp");
+  Cache.loadImage("bullet", "sprites/player.bmp");
+  Cache.loadImage("player", "sprites/player.bmp");
+  Cache.loadImage("explosion", "sprites/explode.bmp");
+  Cache.loadSound("asteroid-smash","sounds/smash.wav");
+  Cache.loadSound("player-explode","sounds/explode.wav");
+  Cache.loadSound("lazer","sounds/laser.wav");
+
   function toDegrees(angle) {
     return angle * (180/Math.PI);
   }
@@ -35,31 +44,78 @@
   /* Create some levels */
   var firstLevel  = new Level("main");
   var secondLevel = new Level("death");
-  var levelArray = [firstLevel, secondLevel];
+  firstLevel.music = "music/main.mp3";
+  secondLevel.music = "music/death.mp3";
+  var levelArray  = [firstLevel, secondLevel];
 
-  /* Create n enemies */
-  var enemyCount = 12;
-  var enemiesArray = new Array(enemyCount);
+  /* Create n asteroids */
+  var asteroidCount = 12;
+  var asteroidArray = new Array(asteroidCount);
 
-  var enemyName  = "asteroid";
-  var playerName = "player";
-  var bulletName = "bullet";
+  var asteroidName  = "asteroid";
+  var playerName    = "player";
+  var bulletName    = "bullet";
 
-  for(var i=0;i <= enemyCount; i++) {
+  /*********************************************************************
+   * Score
+   ********************************************************************/
+  var scoreUI = new GameObject();
+  scoreUI.behaviour = function () {
+    this.uiText = "Score: " + this.level.engineRef.globals.score;
+  };
+  scoreUI.isUI = true;
+  scoreUI.position.x = 10;
+  scoreUI.position.y = 10;
 
-    enemiesArray[i] = new GameObject();
+  /*********************************************************************
+  * Lives
+  ********************************************************************/
+  var livesUI = new GameObject();
+  livesUI.behaviour = function () {
+    this.uiText = "Lives: " + this.level.engineRef.globals.lives;
+  };
+  livesUI.isUI = true;
+  livesUI.position.x = 210;
+  livesUI.position.y = 10;
 
-    /*This is the bahavior of each enemy it gets called each tick*/
-    enemiesArray[i].behaviour = function(){
+  /*********************************************************************
+   * Asteroids
+   *********************************************************************/
+  /* "this" parameter will point to the asteroid gameobject when
+     the function is called */
+  var asteroidOnCollide = function(collidingWith){
+
+    if(collidingWith.name === bulletName) {
+
+      /*Update score and reset asteroid*/
+      this.level.engineRef.globals.score++;
+      this.reset();
+      Sound.playOnce(Cache.sounds["asteroid-smash"]);
+
+    }
+
+  }
+
+  var asteroidBehaviour = function(){
 
         var scaleX = Math.cos(this.direction);
         var scaleY = Math.sin(this.direction);
         var deltaTime = Time.deltaTime();
+        var reset = false;
 
         //Reset
         //When they go off the screen position them back on the screen
         if ( this.position.y > View.height ||
-             this.position.x > View.width  ) {
+             this.position.x > View.width  ||
+             reset ) {
+
+          /*If the asteroids went off the bottom of the screen
+           *decrement the score
+           */
+          if(this.position.y > View.height) {
+           console.log("dec");
+            this.level.engineRef.globals.score--;
+          }
 
           this.direction = toRadians(randomIntFromRange(70,90));
           this.speed = randomIntFromRange(1,3);
@@ -91,31 +147,104 @@
         this.rotation += this.rotateSpeed;
     };
 
-    //TODO: Move this into an init()
-    enemiesArray[i].sprite         = new Image();
-    enemiesArray[i].sprite.src     = 'sprites/enemy.bmp';
-    enemiesArray[i].direction      = toRadians(randomIntFromRange(70,90));
-    enemiesArray[i].speed          = randomIntFromRange(1,2);
-    enemiesArray[i].position.y     = randomIntFromRange(0,screenHeight);
-    enemiesArray[i].position.x     = randomIntFromRange(0,screenWidth);
+  var asteroidReset = function() {
+    this.direction = toRadians(randomIntFromRange(70,90));
+    this.speed = randomIntFromRange(1,3);
+    this.position.y = 0;
+    this.position.x = randomIntFromRange(0, View.width);
+    this.speed      = randomIntFromRange(1,3);
+    this.velocity.x = 0;
+    this.velocity.y = 0;
+  };
 
-    enemiesArray[i].width          = randomIntFromRange(6, 10);
-    enemiesArray[i].height         = randomIntFromRange(6, 10);
-    enemiesArray[i].canCollideWith = [playerName, bulletName];
-    enemiesArray[i].name           = enemyName;
-    enemiesArray[i].rotateSpeed    = randomFloatFromRange(0.001,0.005);
-    enemiesArray[i].setColliderRadius();
+  /*Make asteroidCount asteroids*/
+  for(var i=0;i <= asteroidCount; i++) {
+
+    asteroidArray[i] = new GameObject();
+
+    /*This is the bahavior of each enemy it gets called each tick*/
+    asteroidArray[i].behaviour = asteroidBehaviour;
+    asteroidArray[i].onCollide = asteroidOnCollide;
+    asteroidArray[i].reset     = asteroidReset;
+
+    //TODO: Move this into an init()
+    asteroidArray[i].sprite         = Cache.images["asteroid"];
+    asteroidArray[i].direction      = toRadians(randomIntFromRange(70,90));
+    asteroidArray[i].speed          = randomIntFromRange(1,2);
+    asteroidArray[i].position.y     = randomIntFromRange(0,screenHeight);;
+    asteroidArray[i].position.x     = randomIntFromRange(0,screenWidth);
+
+    asteroidArray[i].width          = randomIntFromRange(6, 10);
+    asteroidArray[i].height         = randomIntFromRange(6, 10);
+    asteroidArray[i].canCollideWith = [playerName, bulletName];
+    asteroidArray[i].name           = asteroidName;
+    asteroidArray[i].rotateSpeed    = randomFloatFromRange(0.001,0.005);
+    asteroidArray[i].setColliderRadius();
+
+>>>>>>> 07a463298b9b094a417aaf3a92d918ec1d3f6655
   }
 
-  /* Create a player */
+  /*********************************************************************
+   * Player
+   *********************************************************************/
   var player = new GameObject();
+
+  player.reset = function() {
+
+      this.sprite = Cache.images["player"];
+      this.isTempDead = false;
+      this.position.x = View.height/2;
+      this.position.y = View.height/2;
+      this.lastTime = this.thisTime;
+
+  };
+
+  player.onCollide = function(collidingWith) {
+
+      /* Did we just die by colliding with an asteroid?
+       * And was it at least 1 second since the last collision?
+       */
+      if((collidingWith.name === asteroidName) &&
+         ((this.thisTime - this.lastTime) >= 2)) {
+
+        /*Make the ship explode and stop*/
+        Sound.playOnce(Cache.sounds["player-explode"]);
+        this.sprite = Cache.images["explosion"];
+        this.isTempDead = true;
+        this.velocity.x = 0;
+        this.velocity.y = 0;
+        this.level.engineRef.globals.lives-=1;
+        this.lastTime = this.thisTime;
+
+        /*End game, reset this level and load the next one.*/
+        if(this.level.engineRef.globals.lives <= 0) {
+          this.level.engineRef.loadLevel("death");
+        }
+
+      }
+
+  };
+
   player.behaviour = function(){
 
-      var deltaTime = Time.deltaTime();
+      /*Has n sconds passed since last check*/
+      this.thisTime += Time.deltaTime();
 
-      if(this.collidingWith === enemyName) {
-        console.log("Collide->"+this.collidingWith);
-        this.collidingWith = "";
+
+      /*
+       * Reset the sprite of the ship from explosion to ship
+       * and place the ship back in the middle of the screen.
+       */
+      if(this.isTempDead && ((this.thisTime - this.lastTime) >= 0.5)) {
+
+        /*Respawn the ship in the centre of the screen.*/
+        this.sprite = Cache.images["player"];
+        //this.speed = this.originalSpeed;
+        this.isTempDead = false;
+        this.position.x = View.height/2;
+        this.position.y = View.height/2;
+        this.lastTime = this.thisTime;
+
       }
 
       if(Key.isDown(Key.UP)){
@@ -132,15 +261,22 @@
         this.rotation += this.turnSpeed * 1;
       }
 
-      if(Key.isDown(Key.SPACE)){
+      /*Only allow the player to fire every second*/
+      if(Key.isDown(Key.SPACE) && ((this.thisTime - this.lastTime) >= 0.5)){
 
-        //TODO : this would be a common operation
-        // move it to the Level
+        this.lastTime = this.thisTime;
+
+        //TODO: Find a better way to do this
+        Sound.playOnce(Cache.sounds["lazer"]);
+
+      /*********************************************************
+       * Bullet
+       *********************************************************/
         var bullet = new GameObject();
         bullet.behaviour = function(){
 
-          this.velocity.x += this.speed;
-          this.velocity.y += this.speed;
+          this.velocity.x += Math.cos((this.rotation/Math.PI*180)) * this.speed;
+          this.velocity.y += Math.sin((this.rotation/Math.PI*180)) * this.speed;
           this.position.x -= this.velocity.x;
           this.position.y -= this.velocity.y;
 
@@ -156,14 +292,26 @@
 
         };
 
+        /*Delete bullet if it collides with asteroid*/
+        bullet.onCollide = function(collidingWith) {
+
+          if(collidingWith.name === asteroidName) {
+            this.die();
+          }
+        }
+
         bullet.width = 5;
         bullet.height = 5;
         bullet.position.x = this.position.x;
         bullet.position.y = this.position.y;
-        bullet.sprite = new Image(bullet.width, bullet.height);
-        bullet.sprite.src = 'sprites/player.bmp';
-        bullet.speed = 0.1;
-        bullet.canCollideWith = [enemyName];
+        bullet.rotation   = this.rotation;
+        bullet.velocity.x = this.velocity.x;
+        bullet.velocity.y = this.velocity.y;
+        bullet.sprite = Cache.images["bullet"];
+        bullet.sprite.width  = bullet.width;
+        bullet.sprite.height = bullet.height;
+        bullet.speed = this.speed + 0.2;
+        bullet.canCollideWith = [asteroidName];
         bullet.name = bulletName;
         this.level.gameObjects.push(bullet);
 
@@ -186,39 +334,80 @@
         this.position.y = this.height;
       }
 
-      if(this.applyThrust){
-        this.velocity.x += Math.cos((this.rotation/Math.PI*180)) * this.speed;
-        this.velocity.y += Math.sin((this.rotation/Math.PI*180)) * this.speed;
+      if(!this.isTempDead) {
+
+        /*Change the veolicity based on the rotation*/
+        if(this.applyThrust){
+          this.velocity.x += Math.cos((this.rotation/Math.PI*180)) * this.speed;
+          this.velocity.y += Math.sin((this.rotation/Math.PI*180)) * this.speed;
+        }
+
+        /* apply friction */
+        this.velocity.x *= 0.98;
+        this.velocity.y *= 0.98;
+
+        /* apply velocities */
+        this.position.x -= this.velocity.x;
+        this.position.y -= this.velocity.y;
+
       }
-
-      // apply friction
-      this.velocity.x *= 0.98;
-      this.velocity.y *= 0.98;
-
-      // apply velocities
-      this.position.x -= this.velocity.x;
-      this.position.y -= this.velocity.y;
-
   };
 
   player.width = 10;
   player.height = 10;
   player.position.x = 250;
   player.position.y = 250;
-  player.sprite = new Image(player.width, player.height);
-  player.sprite.src = 'sprites/player.bmp';
+  player.sprite = Cache.images["player"];
+  player.sprite.width = player.width;
+  player.sprite.height = player.height;
   player.applyThrust = false;
   player.speed = 0.1;
   player.turnSpeed = 0.0005;
-  player.canCollideWith = [enemyName];
+  player.canCollideWith = [asteroidName];
   player.name = playerName;
   player.setColliderRadius();
+  player.thisTime = 0;
+  player.lastTime = 0;
 
-  firstLevel.gameObjects = enemiesArray.concat(player);
-  secondLevel.gameObjects = [];
+  firstLevel.gameObjects = asteroidArray;
+  firstLevel.gameObjects = firstLevel.gameObjects.concat(player)
+  firstLevel.gameObjects = firstLevel.gameObjects.concat(scoreUI);
+  firstLevel.gameObjects = firstLevel.gameObjects.concat(livesUI);
+
+  /***************************************************************
+   * Ui text for second level death screen
+   ***************************************************************/
+  var deathScreenUI = new GameObject();
+  deathScreenUI.behaviour = function () {
+
+    var score = this.level.engineRef.globals.score;
+
+    //TODO: Make this dynamic calculation
+    this.position.x = 45;
+    this.position.y = 125;
+
+    this.uiText = "You scored:" + score;
+    this.uiText += "\n Press Space To Play Again!";
+
+    this.level.engineRef.globals.score = 0;
+    this.level.engineRef.globals.lives = 3;
+
+    if(Key.isDown(Key.SPACE)){
+      this.level.engineRef.loadLevel("main");
+    }
+
+  };
+  deathScreenUI.isUI = true;
+  secondLevel.gameObjects = [deathScreenUI];
 
   /* Construct and run the game engine */
   var myEngine = new Maelstrom(levelArray, screenWidth, screenHeight);
+
+  /*Configure some globals that will need to survive over levels*/
+  myEngine.globals.score = 0;
+  myEngine.globals.lives = 3;
+
+  /*Start the engine running*/
   myEngine.run();
 
 })();

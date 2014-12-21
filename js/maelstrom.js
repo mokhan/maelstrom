@@ -11,17 +11,22 @@ function GameObject () {
   this.layer = 0;
   this.collides = true;
   this.canCollideWith = [];
-  this.collidingWith = ""; //TODO: Make it capable of multicollision
+  this.onCollide = function(collidingWith){}
   this.colliderRadius = 0;
   this.sprites = [];
   this.isGarbage = false;
   this.behaviour = undefined;
+  this.reset = function(){};
   this.name = "";
   this.speed = 0.0;
   this.rotateSpeed = 0.01;
   this.direction = 0;
   this.level = null;
   this.isDead = false;
+  this.isTempDead = false;
+  this.age = 0;
+  this.isUI = false;
+  this.uiText = "";
 }
 
 GameObject.prototype.init = function(level) {
@@ -79,18 +84,21 @@ GameObject.prototype.die = function() {
 function Level(name) {
 
   this.name = name;
+  this.isLoaded = false;
   this.backgroundImg = "";
   this.gameObjects = [];
   this.view = null;
   this.maxGarbage = 30;
   this.garbageCount = 0;
+  this.engineRef = null;
+  this.music = null;
 
 }
 
-Level.prototype.init = function() {
+Level.prototype.init = function(engineReference) {
 
   console.log( "Loading level " + this.name);
-  var i = 0;
+  this.engineRef = engineReference;
   this.view = View.context;
 
 };
@@ -108,6 +116,20 @@ Level.prototype.garbageCollect = function() {
   this.garbageSize = 0;
 
 };
+
+/*When a new level is loaded, this calls the
+ *gameObject reset function on all of the
+ *existing level gameObjects
+ */
+Level.prototype.reset = function() {
+
+  var i = 0, len = this.gameObjects.length;
+
+  for (i=0; i < len; i++) {
+    this.gameObjects[i].reset();
+  }
+
+}
 
 Level.prototype.update = function() {
 
@@ -139,6 +161,9 @@ Level.prototype.update = function() {
 
       currentGameObject = this.gameObjects[i];
 
+      if(currentGameObject.isUI)
+        break;
+
       if(!currentGameObject.collides)
         break;
 
@@ -160,10 +185,8 @@ Level.prototype.update = function() {
       /*The gameobjects can collide, do expensive detection now*/
       if(this.detectsCollisionBetween(currentGameObject,
                                       targetGameObject)){
-
-           console.log("COLLISION!");
-           currentGameObject.collidingWith = targetGameObject.name;
-           targetGameObject.collidingWith  = currentGameObject.name;
+           currentGameObject.onCollide(targetGameObject);
+           targetGameObject.onCollide(currentGameObject);
       }
 
     }
@@ -210,12 +233,20 @@ Level.prototype.render = function() {
     //Yes, we have to rotate the entire view.
     this.view.rotate(currentGameObject.rotation/Math.PI*180);
 
-    this.view.drawImage(currentGameObject.sprite,
-                        -currentGameObject.width/2,
-                        -currentGameObject.height/2,
-                        currentGameObject.width,
-                        currentGameObject.height);
+    if(!currentGameObject.isUI) {
 
+      this.view.drawImage(currentGameObject.sprite,
+                          -currentGameObject.width/2,
+                          -currentGameObject.height/2,
+                          currentGameObject.width,
+                          currentGameObject.height);
+
+    }else{
+
+      this.view.fillText(currentGameObject.uiText,
+                         currentGameObject.position.x,
+                         currentGameObject.position.y);
+    }
 
     this.view.restore();
   }
@@ -232,13 +263,17 @@ function Maelstrom(levelArray, width, height) {
   this.levelArray = levelArray;
   this.currentLevel = 0;
 
-}
+  /*Because these have to survive over level loads*/
+  this.globals = {};
+
+};
 
 Maelstrom.prototype.init = function() {
 
+  Sound.init();
   Time.init();
   View.init(this.viewWidth, this.viewHeight);
-  Sound.load("sounds/test.mp3");
+  this.currentLevel = 0;
   window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
   window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 
@@ -247,17 +282,22 @@ Maelstrom.prototype.init = function() {
 Maelstrom.prototype.run= function() {
 
   var thisEngine = this;
-
   console.log("Starting engine...");
 
   thisEngine.init();
 
-  this.levelArray[this.currentLevel].init();
+  /*initialize the levels*/
+  this.levelArray.forEach(
+    function initializeLevels(level) { level.init(thisEngine); }
+  );
+
+  this.loadLevel(this.levelArray[0].name);
 
   function gameLoop() {
 
     Time.update();
     View.context.clearRect( 0, 0, View.canvas.width, View.canvas.height);
+
     thisEngine.levelArray[thisEngine.currentLevel].update();
     thisEngine.levelArray[thisEngine.currentLevel].render();
 
@@ -273,6 +313,43 @@ Maelstrom.prototype.run= function() {
 };
 
 /*
+ * This method handles loading new levels. This looks
+ * like a screen transition to the player.
+ */
+Maelstrom.prototype.loadLevel = function(name) {
+
+  /*Call reset on the gameobjects in the current loaded level*/
+  this.levelArray[this.currentLevel].reset();
+
+  var oldMusic = this.levelArray[this.currentLevel].music;
+
+  if(Sound.isPlaying(oldMusic)) {
+    Sound.stopLoop(oldMusic);
+  }
+
+  /*Change the running level*/
+  this.currentLevel = this.getLevelIndexFromName(name);
+
+  Sound.playLoop(this.levelArray[this.currentLevel].music);
+
+  if(this.currentLevel < 0) {
+    console.log("Failed to find level " + name);
+    throw "loadLevel Failed";
+  }
+
+};
+
+Maelstrom.prototype.getLevelIndexFromName = function(name) {
+
+  for(var i = 0; i < this.levelArray.length; i++) {
+    if(this.levelArray[i].name === name) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+/*
  * A more intuitive abstraction for the canvas dom object
  */
 var View = {
@@ -284,6 +361,9 @@ var View = {
   height: 0,
   wMidpoint: 0,
   hMidpoint: 0,
+  uiTextColor: "black",
+  uiFont: "bold 16px Arial",
+
   init: function(width, height) {
     this.canvas = this.doc.createElement('canvas');
     this.context = this.canvas.getContext('2d');
@@ -293,6 +373,7 @@ var View = {
     this.height = height;
     this.wMidpoint = width/2;
     this.hMidpoint = height/2;
+    this.context.font = this.uiFont;
     this.doc.body.appendChild(this.canvas);
   }
 };
@@ -345,36 +426,177 @@ var Time = {
   deltaTime: function() {
     return this._deltaTime/this._timeScale;
   }
+
 };
 
 /*
- * Audio goes here
+ * Audio handlers go here
  * http://www.html5rocks.com/en/tutorials/webaudio/intro/
- * TODO: Refactor this, choose where the sound stuff should go
  */
 var Sound = {
-  load: function(url) {
-    var soundBuffer = null;
+  context: null,
+  bufferLoader: null,
+  sounds: {},
 
-    // Fix up prefixing
+  init: function() {
+    this.context = new AudioContext();
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    var context = new AudioContext();
+  },
+
+  stopLoop: function(name) {
+    console.log("stopLoop: " + name);
+    this.sounds[name].stop();
+    this.sounds[name].isPlaying = false;
+  },
+
+  isPlaying: function(name) {
+    if(!this.sounds[name]) {
+      return false;
+    }else{
+      return this.sounds[name].isPlaying;
+    }
+  },
+
+  pauseLoop: function(name) {
+    this.sounds[name].pause();
+    this.sounds[name].isPlaying = false;
+  },
+
+  playLoop: function(name) {
+    console.log("playLoop: " + name);
+    this._playSound(name, true);
+  },
+
+  printDetails: function(name) {
+    if(!this.sounds[name]) {
+      console.log(name+" is not buffered.");
+    }else{
+      console.log(this.sounds[name]);
+    }
+  },
+
+  playOnce: function(name) {
+    this._playSound(name, false);
+  },
+
+  _playSound: function (name, isLoop) {
+
+    this.sounds[name] = this.context.createBufferSource();
+    this._createBuffer(name,name);
+    this.sounds[name].connect(this.context.destination);
+    if(isLoop)
+      this.sounds[name].loop = true;
+    this.sounds[name].start(0);
+    if(isLoop)
+      this.sounds[name].isPlaying = true;
+
+  },
+
+  _createBuffer: function(url, name) {
+
+    var soundBuffer = null;
     var onError = function(){};
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.responseType = 'arraybuffer';
 
+    var thisSoundEngine = this;
+
     // Decode asynchronously
     request.onload = function() {
-      context.decodeAudioData(request.response, function(buffer) {
-        var source    = context.createBufferSource(); // creates a sound source
-        source.buffer = buffer;                       // tell the source which sound to play
-        source.loop = true;
-        source.connect(context.destination);          // connect the source to the context's destination
-        source.start(0);                              // play the source now
+
+      thisSoundEngine.context.decodeAudioData(request.response, function(buffer) {
+
+        thisSoundEngine.sounds[name].buffer = buffer;
+
       }, onError);
     };
     request.send();
+  },
+
+  playWav: function(sound) {
+        sound.load();
+        sound.play();
+        sound.currentTime=0;
   }
 
-};
+}
+
+/*
+ * Cache for holding game resources
+ *
+ */
+var Cache = {
+
+  loaded : false,
+  sounds : {},
+  images : {},
+
+  isLoaded : function() {
+    this.loaded = true;
+  },
+
+  loadSound: function(soundName, soundPath){
+    this.sounds[soundName] = soundPath;
+  },
+
+  loadImage: function(imageName, imagePath) {
+    this.images[imageName] = new Image();
+    this.images[imageName].src = imagePath;
+    this.images[imageName].onload = this.isLoaded();
+    while(!this.loaded) { }
+    console.log("Loaded image resource:" + imagePath);
+    loaded = false;
+  }
+
+}
+
+/* Buffer loader
+ * http://www.html5rocks.com/en/tutorials/webaudio/intro/#toc-abstract
+ */
+function BufferLoader(context, urlList, callback) {
+  this.context = context;
+  this.urlList = urlList;
+  this.onload = callback;
+  this.bufferList = new Array();
+  this.loadCount = 0;
+}
+
+BufferLoader.prototype.loadBuffer = function(url, index) {
+  // Load buffer asynchronously
+  var request = new XMLHttpRequest();
+  request.open("GET", url, true);
+  request.responseType = "arraybuffer";
+
+  var loader = this;
+
+  request.onload = function() {
+    // Asynchronously decode the audio file data in request.response
+    loader.context.decodeAudioData(
+      request.response,
+      function(buffer) {
+        if (!buffer) {
+          alert('error decoding file data: ' + url);
+          return;
+        }
+        loader.bufferList[index] = buffer;
+        if (++loader.loadCount == loader.urlList.length)
+          loader.onload(loader.bufferList);
+      },
+      function(error) {
+        console.error('decodeAudioData error', error);
+      }
+    );
+  }
+
+  request.onerror = function() {
+    alert('BufferLoader: XHR error');
+  }
+
+  request.send();
+}
+
+BufferLoader.prototype.load = function() {
+  for (var i = 0; i < this.urlList.length; ++i)
+  this.loadBuffer(this.urlList[i], i);
+}

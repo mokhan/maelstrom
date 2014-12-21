@@ -28,6 +28,6 @@ world.add(new Rocketship(new Sprite("img/player.bmp", new Coordinate({x: 250, y:
 
 var game = new Game();
 game.add(new Clock(window).run);
-game.add(new Music("mp3/test.mp3", window).run);
+game.add(new Music("music/main.mp3", window).run);
 game.add(world.run);
 game.run();
