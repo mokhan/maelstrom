@@ -1,9 +1,6 @@
 describe("Coordinate", function(){
   var Coordinate = require('../js/coordinate.js');
-  var NORTH = (Math.PI / 2) * - 1;
-  var SOUTH = 0;
-  var WEST = Math.PI;
-  var EAST = 0;
+  var Heading = require('../js/heading.js');
   var subject;
 
   describe("forward", function() {
@@ -15,7 +12,7 @@ describe("Coordinate", function(){
 
     describe ("when heading north", function() {
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 100, direction: NORTH });
+        subject = new Coordinate({x: 100, y: 100, direction: Heading.NORTH });
         speed = 1;
 
         subject.forward(world, speed);
@@ -25,7 +22,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 100, y: 0, direction: NORTH });
+        subject = new Coordinate({ x: 100, y: 0, direction: Heading.NORTH });
         speed = 1;
 
         subject.forward(world, speed);
@@ -37,7 +34,7 @@ describe("Coordinate", function(){
 
     describe ("when heading east", function() {
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 50, y: 50, direction: EAST});
+        subject = new Coordinate({x: 50, y: 50, direction: Heading.EAST});
         speed = 1;
 
         subject.forward(world, speed);
@@ -47,7 +44,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({x: 100, y: 100, direction: EAST});
+        subject = new Coordinate({x: 100, y: 100, direction: Heading.EAST});
         speed = 1;
 
         subject.forward(world, speed);
@@ -59,7 +56,7 @@ describe("Coordinate", function(){
 
     describe ("when heading west", function() {
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 100, direction: WEST });
+        subject = new Coordinate({x: 100, y: 100, direction: Heading.WEST });
         speed = 1;
 
         subject.forward(world, speed);
@@ -69,7 +66,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 0, y: 100, direction: WEST });
+        subject = new Coordinate({ x: 0, y: 100, direction: Heading.WEST });
         speed = 1;
 
         subject.forward(world, speed);
@@ -80,9 +77,8 @@ describe("Coordinate", function(){
     });
 
     describe ("when heading south", function() {
-      var SOUTH = Math.PI / 2;
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 50, direction: SOUTH });
+        subject = new Coordinate({x: 100, y: 50, direction: Heading.SOUTH });
         speed = 1;
 
         subject.forward(world, speed);
@@ -92,7 +88,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 100, y: 100, direction: SOUTH });
+        subject = new Coordinate({ x: 100, y: 100, direction: Heading.SOUTH });
         speed = 1;
 
         subject.forward(world, speed);
@@ -111,11 +107,11 @@ describe("Coordinate", function(){
     });
 
     it ("rotates to the left", function() {
-      subject = new Coordinate({ x: 50, y: 50, direction: SOUTH });
+      subject = new Coordinate({ x: 50, y: 50, direction: Heading.EAST });
       speed = 1;
       subject.rotateLeft(world, speed);
 
-      expect(subject.direction).toEqual(-0.03);
+      expect(subject.direction).toEqual(-0.0001);
       expect(subject.x).toEqual(50);
       expect(subject.y).toEqual(50);
     });
@@ -129,11 +125,11 @@ describe("Coordinate", function(){
     });
 
     it ("rotates to the right", function() {
-      subject = new Coordinate({ x: 50, y: 50, direction: SOUTH });
+      subject = new Coordinate({ x: 50, y: 50, direction: Heading.EAST });
       speed = 1;
       subject.rotateRight(world, speed);
 
-      expect(subject.direction).toEqual(0.03);
+      expect(subject.direction).toEqual(0.0001);
       expect(subject.x).toEqual(50);
       expect(subject.y).toEqual(50);
     });
