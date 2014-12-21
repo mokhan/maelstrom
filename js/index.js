@@ -14,7 +14,7 @@ _ = require('underscore');
 window.addEventListener('keyup', function(event) { Keyboard.onKeyup(event); }, false);
 window.addEventListener('keydown', function(event) { Keyboard.onKeydown(event); }, false);
 
-var world = new World().bindTo(document);
+var world = new World({height: 512, width: 512}).bindTo(document);
 
 for (var i = 0; i < 10; i ++) {
   var coordinate = new Coordinate({

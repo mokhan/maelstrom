@@ -1,7 +1,8 @@
-function World(){
-  this.props = [];
-  this.height = this.width = 512;
+function World(options){
   _.bindAll(this, 'add', 'bindTo', 'draw', 'run', 'render');
+  this.props = [];
+  this.height = options.height;
+  this.width = options.width;
 }
 
 World.prototype.add = function(prop) {

@@ -3,7 +3,7 @@ describe("World", function(){
   var subject;
 
   beforeEach(function(){
-    subject = new World();
+    subject = new World({height: 100, width: 100});
   });
 
   describe("run", function(){
