@@ -36,7 +36,9 @@ World.prototype.clearCanvas = function() {
 
 World.prototype.render = function(sprite) {
   this.draw(function(view) {
+    view.save();
     sprite.drawOn(view);
+    view.restore();
   });
 };
 

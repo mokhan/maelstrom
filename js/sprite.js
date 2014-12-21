@@ -18,6 +18,9 @@ Sprite.prototype.rotateRight = function(world, speed) {
 };
 
 Sprite.prototype.drawOn = function(canvas) {
+  //canvas.translate(this.coordinate.x, this.coordinate.y);
+  //canvas.rotate(this.coordinate.rotation/Math.PI*180);
+  //canvas.rotate((Math.PI / 180.0) * 45);
   canvas.drawImage(this.image, this.coordinate.x, this.coordinate.y);
 };
 

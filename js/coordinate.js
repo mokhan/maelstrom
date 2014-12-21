@@ -12,6 +12,7 @@ function Coordinate(options){
     this.y = Utility.randomIntFromRange(0, 512);
     this.direction = this.randomDirection();
   }
+  this.rotation = 0;
 }
 
 Coordinate.prototype.forward = function(world, speed) {
@@ -33,11 +34,17 @@ Coordinate.prototype.forward = function(world, speed) {
 };
 
 Coordinate.prototype.rotateLeft = function(world, speed) {
-  this.direction -= 0.03;
+  //this.rotation = 45 * Math.PI / 180;
+  this.rotation += 0.0001 * -1;
+  this.direction -= 0.0001;
+  console.log('rotation ' + this.rotation);
+  console.log('direction ' + this.direction);
 };
 
 Coordinate.prototype.rotateRight = function(world, speed) {
-  this.direction += 0.03;
+  //this.rotation = -45 * Math.PI / 180;
+  this.rotation += 0.0001 * 1;
+  this.direction += 0.0001;
 };
 
 Coordinate.prototype.randomDirection = function() {

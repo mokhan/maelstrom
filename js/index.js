@@ -14,7 +14,7 @@ window.addEventListener('keydown', function(event) { Keyboard.onKeydown(event); 
 
 var world = new World().bindTo(document);
 
-for (var i = 0; i < 10; i ++) {
+for (var i = 0; i < 1; i ++) {
   world.add(new Monster(new Sprite('img/enemy.bmp', new Coordinate())));
 }
 world.add(new Rocketship(new Sprite("img/player.bmp", new Coordinate({x: 250, y: 250, direction: 0}))));

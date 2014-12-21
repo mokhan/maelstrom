@@ -11,28 +11,19 @@ function Rocketship(sprite){
 
 Rocketship.prototype.redrawOn = function(world) {
   if (Key.isDown(Key.LEFT)) {
-    //this.rotation += this.turnSpeed * -1;
+    this.speed = 1.0;
     this.sprite.rotateLeft(world, this.turnSpeed);
   }
 
   if (Key.isDown(Key.RIGHT)) {
-    //this.rotation += this.turnSpeed * 1;
+    this.speed = 1.0;
     this.sprite.rotateRight(world, this.turnSpeed);
   }
 
   if (Key.isDown(Key.UP)) {
-    //this.velocity.x += Math.cos((this.rotation/Math.PI*180)) * this.speed;
-    //this.velocity.y += Math.sin((this.rotation/Math.PI*180)) * this.speed;
+    this.speed += 0.05;
     this.sprite.moveForward(world, this.speed);
   }
-
-  // apply friction
-  //this.velocity.x *= 0.98;
-  //this.velocity.y *= 0.98;
-
-  // apply velocities
-  //this.sprite.coordinate.x -= this.velocity.x;
-  //this.sprite.coordinate.y -= this.velocity.y;
 
   world.render(this.sprite);
 };
