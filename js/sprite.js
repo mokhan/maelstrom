@@ -5,22 +5,19 @@ function Sprite(uri, coordinate) {
   this.coordinate = coordinate;
 }
 
-Sprite.prototype.moveForward = function(world, speed) {
-  this.coordinate = this.coordinate.forward(world, speed);
+Sprite.prototype.moveForward = function(world) {
+  this.coordinate = this.coordinate.moveForward(world);
 };
 
-Sprite.prototype.rotateLeft = function(world, speed) {
-  this.coordinate = this.coordinate.rotateLeft(world, speed);
+Sprite.prototype.moveLeft = function(world) {
+  this.coordinate = this.coordinate.moveLeft(world);
 };
 
-Sprite.prototype.rotateRight = function(world, speed) {
-  this.coordinate = this.coordinate.rotateRight(world, speed);
+Sprite.prototype.moveRight = function(world) {
+  this.coordinate = this.coordinate.moveRight(world);
 };
 
 Sprite.prototype.drawOn = function(canvas) {
-  //canvas.translate(this.coordinate.x, this.coordinate.y);
-  //canvas.rotate(this.coordinate.rotation/Math.PI*180);
-  //canvas.rotate((Math.PI / 180.0) * 45);
   canvas.drawImage(this.image, this.coordinate.x, this.coordinate.y);
 };
 

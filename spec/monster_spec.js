@@ -19,7 +19,7 @@ describe ("Monster", function() {
     it ("moves forward", function() {
       subject.redrawOn(world);
 
-      expect(sprite.moveForward).toHaveBeenCalledWith(world, subject.speed);
+      expect(sprite.moveForward).toHaveBeenCalledWith(world);
     });
 
     it ("draws the current position on the canvas", function() {
