@@ -15,33 +15,11 @@ Coordinate.prototype.moveForward = function(world) {
 };
 
 Coordinate.prototype.moveLeft = function(world) {
-  if (this.direction == Heading.NORTH) {
-    return this.move(world, Heading.WEST);
-  }
-  if (this.direction == Heading.EAST) {
-    return this.move(world, Heading.NORTH);
-  }
-  if (this.direction == Heading.SOUTH) {
-    return this.move(world, Heading.EAST);
-  }
-  if (this.direction == Heading.WEST) {
-    return this.move(world, Heading.SOUTH);
-  }
+  return this.move(world, this.direction + ((Math.PI / 2) * -1));
 };
 
 Coordinate.prototype.moveRight = function(world) {
-  if (this.direction == Heading.NORTH) {
-    return this.move(world, Heading.EAST);
-  }
-  if (this.direction == Heading.EAST) {
-    return this.move(world, Heading.SOUTH);
-  }
-  if (this.direction == Heading.SOUTH) {
-    return this.move(world, Heading.WEST);
-  }
-  if (this.direction == Heading.WEST) {
-    return this.move(world, Heading.NORTH);
-  }
+  return this.move(world, this.direction + (Math.PI / 2));
 };
 
 Coordinate.prototype.move = function(world, direction) {
