@@ -6,15 +6,15 @@ function Sprite(uri, coordinate) {
 }
 
 Sprite.prototype.moveForward = function(world, speed) {
-  this.coordinate.forward(world, speed);
+  this.coordinate = this.coordinate.forward(world, speed);
 };
 
 Sprite.prototype.rotateLeft = function(world, speed) {
-  this.coordinate.rotateLeft(world, speed);
+  this.coordinate = this.coordinate.rotateLeft(world, speed);
 };
 
 Sprite.prototype.rotateRight = function(world, speed) {
-  this.coordinate.rotateRight(world, speed);
+  this.coordinate = this.coordinate.rotateRight(world, speed);
 };
 
 Sprite.prototype.drawOn = function(canvas) {
