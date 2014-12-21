@@ -109,11 +109,11 @@ describe("Coordinate", function(){
     it ("rotates to the left", function() {
       subject = new Coordinate({ x: 50, y: 50, direction: Heading.EAST });
       speed = 1;
-      subject.rotateLeft(world, speed);
+      result = subject.rotateLeft(world, speed);
 
-      expect(subject.direction).toEqual(-0.0001);
-      expect(subject.x).toEqual(50);
-      expect(subject.y).toEqual(50);
+      expect(result.direction).toEqual(-0.0001);
+      expect(result.x).toEqual(50);
+      expect(result.y).toEqual(50);
     });
   });
 
@@ -127,11 +127,11 @@ describe("Coordinate", function(){
     it ("rotates to the right", function() {
       subject = new Coordinate({ x: 50, y: 50, direction: Heading.EAST });
       speed = 1;
-      subject.rotateRight(world, speed);
+      result = subject.rotateRight(world, speed);
 
-      expect(subject.direction).toEqual(0.0001);
-      expect(subject.x).toEqual(50);
-      expect(subject.y).toEqual(50);
+      expect(result.direction).toEqual(0.0001);
+      expect(result.x).toEqual(50);
+      expect(result.y).toEqual(50);
     });
   });
 });
