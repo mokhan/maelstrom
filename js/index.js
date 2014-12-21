@@ -8,6 +8,7 @@ var Rocketship = require('./rocketship.js');
 var Utility = require('./utility.js');
 var Heading = require('./heading.js');
 var Keyboard = require('./keyboard.js');
+var Music = require('./music.js');
 _ = require('underscore');
 
 window.addEventListener('keyup', function(event) { Keyboard.onKeyup(event); }, false);
@@ -27,5 +28,6 @@ world.add(new Rocketship(new Sprite("img/player.bmp", new Coordinate({x: 250, y:
 
 var game = new Game();
 game.add(new Clock(window).run);
+game.add(new Music("mp3/test.mp3", window).run);
 game.add(world.run);
 game.run();
