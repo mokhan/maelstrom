@@ -20,7 +20,7 @@ for (var i = 0; i < 10; i ++) {
   var y = Utility.randomIntFromRange(0, 512);
   var direction = Heading.random();
 
-  var coordinate = new Coordinate({x: x, y: y, direction: Heading.SOUTH, speed: Utility.randomIntFromRange(1, 3)});
+  var coordinate = new Coordinate({x: x, y: y, direction: direction, speed: Utility.randomIntFromRange(1, 3)});
   world.add(new Monster(new Sprite('img/enemy.bmp', coordinate)));
 }
 world.add(new Rocketship(new Sprite("img/player.bmp", new Coordinate({x: 250, y: 250, direction: Heading.NORTH, speed: 1}))));
