@@ -32,12 +32,12 @@ Coordinate.prototype.forward = function(world, speed) {
   }
 };
 
-Coordinate.prototype.rotateLeft = function(speed) {
- console.log('rotate left'); 
+Coordinate.prototype.rotateLeft = function(world, speed) {
+  this.direction -= 0.03;
 };
 
-Coordinate.prototype.rotateRight = function(speed) {
- console.log('rotate right'); 
+Coordinate.prototype.rotateRight = function(world, speed) {
+  this.direction += 0.03;
 };
 
 Coordinate.prototype.randomDirection = function() {

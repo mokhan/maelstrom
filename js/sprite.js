@@ -9,12 +9,12 @@ Sprite.prototype.moveForward = function(world, speed) {
   this.coordinate.forward(world, speed);
 };
 
-Sprite.prototype.rotateLeft = function(speed) {
-  this.coordinate.rotateLeft(speed);
+Sprite.prototype.rotateLeft = function(world, speed) {
+  this.coordinate.rotateLeft(world, speed);
 };
 
-Sprite.prototype.rotateRight = function(speed) {
-  this.coordinate.rotateRight(speed);
+Sprite.prototype.rotateRight = function(world, speed) {
+  this.coordinate.rotateRight(world, speed);
 };
 
 Sprite.prototype.drawOn = function(canvas) {

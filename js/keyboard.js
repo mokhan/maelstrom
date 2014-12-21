@@ -12,12 +12,10 @@ var Keyboard = {
   },
 
   onKeydown: function(event) {
-    console.log('key down ' + event.keyCode);
     this._pressed[event.keyCode] = true;
   },
 
   onKeyup: function(event) {
-    console.log('key up ' + event.keyCode);
     delete this._pressed[event.keyCode];
   }
 };

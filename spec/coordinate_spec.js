@@ -1,5 +1,9 @@
 describe("Coordinate", function(){
   var Coordinate = require('../js/coordinate.js');
+  var NORTH = (Math.PI / 2) * - 1;
+  var SOUTH = 0;
+  var WEST = Math.PI;
+  var EAST = 0;
   var subject;
 
   describe("forward", function() {
@@ -10,8 +14,6 @@ describe("Coordinate", function(){
     });
 
     describe ("when heading north", function() {
-      var NORTH = (Math.PI / 2) * - 1;
-
       it ("advances forward one space", function() {
         subject = new Coordinate({x: 100, y: 100, direction: NORTH });
         speed = 1;
@@ -34,10 +36,8 @@ describe("Coordinate", function(){
     });
 
     describe ("when heading east", function() {
-      var SOUTH = 0;
-
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 50, y: 50, direction: SOUTH});
+        subject = new Coordinate({x: 50, y: 50, direction: EAST});
         speed = 1;
 
         subject.forward(world, speed);
@@ -47,7 +47,7 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({x: 100, y: 100, direction: SOUTH});
+        subject = new Coordinate({x: 100, y: 100, direction: EAST});
         speed = 1;
 
         subject.forward(world, speed);
@@ -58,8 +58,6 @@ describe("Coordinate", function(){
     });
 
     describe ("when heading west", function() {
-      var WEST = Math.PI;
-
       it ("advances forward one space", function() {
         subject = new Coordinate({x: 100, y: 100, direction: WEST });
         speed = 1;
@@ -106,14 +104,36 @@ describe("Coordinate", function(){
   });
 
   describe ("rotateLeft", function() {
-    var NORTH = (Math.PI / 2) * - 1;
+    var world;
+
+    beforeEach(function(){
+      world = { width: 100, height: 100 };
+    });
 
     it ("rotates to the left", function() {
-      subject = new Coordinate({ x: 50, y: 50, direction: NORTH });
+      subject = new Coordinate({ x: 50, y: 50, direction: SOUTH });
       speed = 1;
-      subject.rotateLeft(speed);
+      subject.rotateLeft(world, speed);
 
-      expect(subject.direction).toEqual(50);
+      expect(subject.direction).toEqual(-0.03);
+      expect(subject.x).toEqual(50);
+      expect(subject.y).toEqual(50);
+    });
+  });
+
+  describe ("rotateRight", function() {
+    var world;
+
+    beforeEach(function(){
+      world = { width: 100, height: 100 };
+    });
+
+    it ("rotates to the right", function() {
+      subject = new Coordinate({ x: 50, y: 50, direction: SOUTH });
+      speed = 1;
+      subject.rotateRight(world, speed);
+
+      expect(subject.direction).toEqual(0.03);
       expect(subject.x).toEqual(50);
       expect(subject.y).toEqual(50);
     });
