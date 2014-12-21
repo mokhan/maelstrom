@@ -44,13 +44,13 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({x: 100, y: 100, direction: Heading.EAST});
+        subject = new Coordinate({x: world.width, y: 0, direction: Heading.EAST});
         speed = 1;
 
         subject.forward(world, speed);
 
         expect(subject.x).toEqual(0);
-        expect(subject.y).toEqual(100);
+        expect(subject.y).toEqual(0);
       });
     });
 
@@ -66,13 +66,13 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 0, y: 100, direction: Heading.WEST });
+        subject = new Coordinate({ x: 0, y: 0, direction: Heading.WEST });
         speed = 1;
 
         subject.forward(world, speed);
 
-        expect(subject.x).toEqual(100);
-        expect(subject.y).toEqual(100);
+        expect(subject.x).toEqual(world.width);
+        expect(subject.y).toEqual(0);
       });
     });
 
@@ -88,12 +88,12 @@ describe("Coordinate", function(){
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 100, y: 100, direction: Heading.SOUTH });
+        subject = new Coordinate({ x: 0, y: 100, direction: Heading.SOUTH });
         speed = 1;
 
         subject.forward(world, speed);
 
-        expect(subject.x).toEqual(100);
+        expect(subject.x).toEqual(0);
         expect(subject.y).toEqual(0);
       });
     });

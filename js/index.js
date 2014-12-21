@@ -6,6 +6,7 @@ var Coordinate = require('./coordinate.js');
 var Sprite = require('./sprite.js');
 var Rocketship = require('./rocketship.js');
 var Utility = require('./utility.js');
+var Heading = require('./heading.js');
 var Keyboard = require('./keyboard.js');
 _ = require('underscore');
 
@@ -15,7 +16,10 @@ window.addEventListener('keydown', function(event) { Keyboard.onKeydown(event); 
 var world = new World().bindTo(document);
 
 for (var i = 0; i < 10; i ++) {
-  world.add(new Monster(new Sprite('img/enemy.bmp', new Coordinate())));
+  var x = Utility.randomIntFromRange(0, 512);
+  var y = Utility.randomIntFromRange(0, 512);
+  var direction = Heading.random();
+  world.add(new Monster(new Sprite('img/enemy.bmp', new Coordinate({x: x, y: y, direction: direction}))));
 }
 world.add(new Rocketship(new Sprite("img/player.bmp", new Coordinate({x: 250, y: 250, direction: 0}))));
 
