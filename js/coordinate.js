@@ -7,7 +7,6 @@ function Coordinate(options){
   this.y = options.y;
   this.direction = options.direction;
   this.speed = options.speed;
-  this.rotation = 0;
 }
 
 Coordinate.prototype.moveForward = function(world) {
@@ -15,11 +14,13 @@ Coordinate.prototype.moveForward = function(world) {
 };
 
 Coordinate.prototype.moveLeft = function(world) {
-  return this.move(world, this.direction + ((Math.PI / 2) * -1));
+  var leftRotation = this.direction + ((Math.PI / 2) * -1);
+  return this.move(world, leftRotation);
 };
 
 Coordinate.prototype.moveRight = function(world) {
-  return this.move(world, this.direction + (Math.PI / 2));
+  var rightRotation = this.direction + (Math.PI / 2);
+  return this.move(world, rightRotation);
 };
 
 Coordinate.prototype.move = function(world, direction) {
