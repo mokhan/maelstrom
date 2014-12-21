@@ -9,4 +9,5 @@ var Heading = {
     return Utility.toRadians(Utility.randomIntFromRange(70,90));
   }
 };
+
 module.exports = Heading;

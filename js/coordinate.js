@@ -1,7 +1,7 @@
 var Utility = require('./utility.js');
 
 function Coordinate(options){
-  _.bindAll(this, 'forward', 'randomDirection');
+  _.bindAll(this, 'forward', 'rotateLeft', 'rotateRight');
   this.x = options.x;
   this.y = options.y;
   this.direction = options.direction;
@@ -21,15 +21,11 @@ Coordinate.prototype.forward = function(world, speed) {
 };
 
 Coordinate.prototype.rotateLeft = function(world, speed) {
-  return new Coordinate({x: this.x, y: this.y, direction: this.direction -= 0.0001});
+  return new Coordinate({x: this.x, y: this.y, direction: this.direction -= 0.05});
 };
 
 Coordinate.prototype.rotateRight = function(world, speed) {
-  return new Coordinate({x: this.x, y: this.y, direction: this.direction += 0.0001});
-};
-
-Coordinate.prototype.randomDirection = function() {
-  return Utility.toRadians(Utility.randomIntFromRange(70,90));
+  return new Coordinate({x: this.x, y: this.y, direction: this.direction += 0.05});
 };
 
 module.exports = Coordinate;

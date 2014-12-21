@@ -111,7 +111,7 @@ describe("Coordinate", function(){
       speed = 1;
       result = subject.rotateLeft(world, speed);
 
-      expect(result.direction).toEqual(-0.0001);
+      expect(result.direction).toEqual(-0.05);
       expect(result.x).toEqual(50);
       expect(result.y).toEqual(50);
     });
@@ -129,7 +129,7 @@ describe("Coordinate", function(){
       speed = 1;
       result = subject.rotateRight(world, speed);
 
-      expect(result.direction).toEqual(0.0001);
+      expect(result.direction).toEqual(0.05);
       expect(result.x).toEqual(50);
       expect(result.y).toEqual(50);
     });

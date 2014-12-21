@@ -21,7 +21,7 @@ for (var i = 0; i < 10; i ++) {
   var direction = Heading.random();
   world.add(new Monster(new Sprite('img/enemy.bmp', new Coordinate({x: x, y: y, direction: direction}))));
 }
-world.add(new Rocketship(new Sprite("img/player.bmp", new Coordinate({x: 250, y: 250, direction: 0}))));
+world.add(new Rocketship(new Sprite("img/player.bmp", new Coordinate({x: 250, y: 250, direction: Heading.NORTH}))));
 
 var game = new Game();
 game.add(new Clock(window).run);
