@@ -2,6 +2,7 @@ describe("Rocketship", function() {
   var Rocketship = require('../public/javascripts/rocketship.js');
   var Key = require('../public/javascripts/keyboard.js');
   var Images = require('../public/javascripts/images.js');
+  var Audio = require('../public/javascripts/audio.js');
   var subject;
   var sprite;
 
@@ -75,6 +76,7 @@ describe("Rocketship", function() {
 
     beforeEach(function(){
       spyOn(sprite, 'changeImageTo');
+      spyOn(Audio, 'play');
     });
 
     it("changes the image to display", function() {
@@ -85,6 +87,11 @@ describe("Rocketship", function() {
     it ("dies", function() {
       subject.collideWith(object);
       expect(subject.isDead()).toEqual(true);
+    });
+
+    it("plays a sound", function() {
+      subject.collideWith(object);
+      expect(Audio.play).toHaveBeenCalledWith(Audio.explosion);
     });
   });
 });
