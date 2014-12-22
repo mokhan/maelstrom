@@ -1,5 +1,7 @@
 var Heading = require('./heading.js');
 var Images = require('./images.js');
+var Laser = require('./laser.js');
+var Images = require('./images.js');
 
 function Sprite(options){
   _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight', 'move');
@@ -61,6 +63,16 @@ Sprite.prototype.moveTo = function(world, x, y) {
     speed: this.speed,
     image: this.image,
   });
+};
+
+Sprite.prototype.fire = function(world) {
+  world.add(new Laser(new Sprite({
+    x: this.x,
+    y: this.y - 5,
+    heading: Heading.NORTH,
+    speed: 3,
+    image: Images.load(Images.laser),
+  })));
 };
 
 module.exports = Sprite;

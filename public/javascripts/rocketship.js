@@ -27,7 +27,7 @@ Rocketship.prototype.redrawOn = function(world) {
     }
 
     if (Key.isDown(Key.SPACE)) {
-      this.sprite.fire(Images.laser, world);
+      this.sprite.fire(world);
     }
   }
 

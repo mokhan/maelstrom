@@ -63,7 +63,7 @@ describe("Rocketship", function() {
       });
 
       subject.redrawOn(world);
-      expect(sprite.fire).toHaveBeenCalledWith(Images.laser, world);
+      expect(sprite.fire).toHaveBeenCalledWith(world);
     });
 
     describe ("when dead", function() {

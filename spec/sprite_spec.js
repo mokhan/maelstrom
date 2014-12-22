@@ -255,4 +255,16 @@ describe("Sprite", function(){
       expect(result.y).toEqual(200);
     });
   });
+
+  describe ("fire", function() {
+    it('adds a new laser to the world', function(){
+      world = { add: null};
+      spyOn(world, 'add');
+      spyOn(Images, 'load');
+
+      subject.fire(world);
+
+      expect(world.add).toHaveBeenCalled();
+    });
+  });
 });
