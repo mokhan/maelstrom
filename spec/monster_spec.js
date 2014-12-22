@@ -1,8 +1,9 @@
 var Monster = require("../js/monster.js");
+var Rocketship = require("../js/rocketship.js");
 
 describe ("Monster", function() {
   var subject;
-  var sprite = { moveForward: function() {} };
+  var sprite = { moveForward: function() {}, chooseRandomHeading: function(){} };
 
   beforeEach(function(){
     subject = new Monster(sprite);
@@ -27,14 +28,37 @@ describe ("Monster", function() {
 
       expect(world.render).toHaveBeenCalledWith(sprite);
     });
+
+    describe ("when stopped", function() {
+      it ("does not move", function() {
+        subject.stop = true;
+        subject.redrawOn(world);
+
+        expect(sprite.moveForward).not.toHaveBeenCalledWith(world);
+        expect(world.render).not.toHaveBeenCalledWith(sprite);
+      });
+    });
   });
 
   describe ("collideWith", function() {
+    beforeEach(function(){
+      spyOn(sprite, 'chooseRandomHeading');
+    });
+
     it('changes direction when colliding with another monster', function(){
       var otherMonster = new Monster(sprite);
-      var originalHeading = subject.heading();
       subject.collideWith(otherMonster);
-      expect(subject.heading()).not.toEqual(originalHeading);
+
+      expect(subject.isMoving()).toEqual(true);
+      expect(sprite.chooseRandomHeading).toHaveBeenCalled();
+    });
+
+    it("stops moving when colliding with a rocketship", function() {
+      var rocketship = new Rocketship(sprite);
+      subject.collideWith(rocketship);
+
+      expect(subject.isMoving()).toEqual(false);
+      expect(sprite.chooseRandomHeading).not.toHaveBeenCalled();
     });
   });
 });
