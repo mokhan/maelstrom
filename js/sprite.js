@@ -7,6 +7,7 @@ function Sprite(options){
   this.heading = options.heading;
   this.speed = options.speed;
   this.image = options.image;
+  this.radius = this.image ? this.image.width / 2 : 0;
 }
 
 Sprite.prototype.moveForward = function(world) {

@@ -79,8 +79,8 @@ describe("World", function(){
     });
 
     it ("notifies each prop when a collision occurs", function() {
-      player.sprite.location = function(){ return { x: 5, y: 5, radius: 20 }; };
-      asteroid.sprite.location = function(){ return { x: 10, y: 5, radius: 12 }; };
+      player.sprite = { x: 5, y: 5, radius: 20 };
+      asteroid.sprite = { x: 10, y: 5, radius: 12 };
 
       subject.detectCollisions();
 
@@ -89,8 +89,8 @@ describe("World", function(){
     });
 
     it ("does not notify props that were not involved in a collision", function() {
-      player.sprite.location = function(){ return { x: 5, y: 5, radius: 1 }; };
-      asteroid.sprite.location = function(){ return { x: 10, y: 10, radius: 1 }; };
+      player.sprite = { x: 5, y: 5, radius: 1 };
+      asteroid.sprite = { x: 10, y: 10, radius: 1 };
 
       subject.detectCollisions();
 

@@ -22,7 +22,7 @@ Rocketship.prototype.redrawOn = function(world) {
 };
 
 Rocketship.prototype.collideWith = function(otherProp) {
-  console.log("COLLISION with " + otherProp);
+  console.dir(otherProp);
 };
 
 module.exports = Rocketship;

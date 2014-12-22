@@ -48,7 +48,7 @@ World.prototype.detectCollisions = function() {
   var that = this;
   this.eachProp(function(prop){
     that.eachProp(function(otherProp){
-      if (that.collision(prop.sprite.location(), otherProp.sprite.location())) {
+      if (that.collision(prop.sprite, otherProp.sprite)) {
         prop.collideWith(otherProp);
       }
     });
@@ -56,6 +56,9 @@ World.prototype.detectCollisions = function() {
 };
 
 World.prototype.collision = function(prop, otherProp) {
+  if (prop === otherProp) {
+    return false;
+  }
   var dx = (prop.x + prop.radius) - (otherProp.x + otherProp.radius);
   var dy = (prop.y + prop.radius) - (otherProp.y + otherProp.radius);
   var distance = Math.sqrt(dx * dx + dy * dy);
