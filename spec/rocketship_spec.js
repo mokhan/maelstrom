@@ -1,11 +1,12 @@
 describe("Rocketship", function() {
   var Rocketship = require('../js/rocketship.js');
   var Key = require('../js/keyboard.js');
+  var Images = require('../js/images.js');
   var subject;
   var sprite;
 
   beforeEach(function(){
-    sprite = { moveLeft: null, moveRight: null, moveForward: null };
+    sprite = { moveLeft: null, moveRight: null, moveForward: null, crash: null };
     subject = new Rocketship(sprite);
   });
 
@@ -52,6 +53,18 @@ describe("Rocketship", function() {
 
       subject.redrawOn(world);
       expect(sprite.moveForward).toHaveBeenCalledWith(world);
+    });
+  });
+
+  describe("collideWith", function() {
+    beforeEach(function(){
+      spyOn(sprite, 'crash');
+    });
+
+    it("dies", function() {
+      var object = {};
+      subject.collideWith(object);
+      expect(sprite.crash).toHaveBeenCalledWith(Images.explosion);
     });
   });
 });

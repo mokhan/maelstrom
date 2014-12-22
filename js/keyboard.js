@@ -1,4 +1,4 @@
-var Keyboard = {
+module.exports = {
   _pressed: {},
 
   LEFT: 37,
@@ -19,5 +19,3 @@ var Keyboard = {
     delete this._pressed[event.keyCode];
   }
 };
-
-module.exports = Keyboard;

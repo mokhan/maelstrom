@@ -1,4 +1,5 @@
 var Key = require('./keyboard.js');
+var Images = require('../js/images.js');
 
 function Rocketship(sprite){
   _.bindAll(this, 'redrawOn', 'collideWith');
@@ -22,7 +23,7 @@ Rocketship.prototype.redrawOn = function(world) {
 };
 
 Rocketship.prototype.collideWith = function(otherProp) {
-  console.dir(otherProp);
+  this.sprite.crash(Images.explosion);
 };
 
 module.exports = Rocketship;
