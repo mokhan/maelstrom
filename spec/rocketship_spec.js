@@ -54,6 +54,20 @@ describe("Rocketship", function() {
       subject.redrawOn(world);
       expect(sprite.moveForward).toHaveBeenCalledWith(world);
     });
+
+    describe ("when dead", function() {
+      it("stops moving", function() {
+        spyOn(Key, 'isDown').and.returnValue(true);
+        spyOn(sprite, 'changeImageTo').and.returnValue(undefined);
+
+        subject.collideWith({});
+
+        subject.redrawOn(world);
+        expect(sprite.moveForward).not.toHaveBeenCalled();
+        expect(sprite.moveLeft).not.toHaveBeenCalled();
+        expect(sprite.moveRight).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe("collideWith", function() {
@@ -66,6 +80,11 @@ describe("Rocketship", function() {
     it("changes the image to display", function() {
       subject.collideWith(object);
       expect(sprite.changeImageTo).toHaveBeenCalledWith(Images.explosion);
+    });
+
+    it ("dies", function() {
+      subject.collideWith(object);
+      expect(subject.isDead()).toEqual(true);
     });
   });
 });
