@@ -1,6 +1,6 @@
 var Key = require('./keyboard.js');
 var Images = require('./images.js');
-var Audio = require('./audio.js');
+var Sound = require('./sound.js');
 
 function Rocketship(sprite){
   _.bindAll(this, 'redrawOn', 'collideWith', 'isDead', 'die');
@@ -37,7 +37,7 @@ Rocketship.prototype.isDead = function() {
 Rocketship.prototype.die = function() {
   this.dead = true;
   this.sprite.changeImageTo(Images.explosion);
-  Audio.play(Audio.explosion);
+  Sound.play(Sound.explosion);
 };
 
 module.exports = Rocketship;

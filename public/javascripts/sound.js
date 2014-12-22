@@ -1,6 +1,6 @@
 module.exports = {
   explosion: 'audio/explode.wav',
-  play: function(sound){ 
+  play: function(sound){
     new Audio(sound).play();
   }
 };

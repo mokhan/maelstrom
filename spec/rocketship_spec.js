@@ -2,7 +2,7 @@ describe("Rocketship", function() {
   var Rocketship = require('../public/javascripts/rocketship.js');
   var Key = require('../public/javascripts/keyboard.js');
   var Images = require('../public/javascripts/images.js');
-  var Audio = require('../public/javascripts/audio.js');
+  var Sound = require('../public/javascripts/sound.js');
   var subject;
   var sprite;
 
@@ -60,6 +60,7 @@ describe("Rocketship", function() {
       it("stops moving", function() {
         spyOn(Key, 'isDown').and.returnValue(true);
         spyOn(sprite, 'changeImageTo').and.returnValue(undefined);
+        spyOn(Sound, 'play');
 
         subject.collideWith({});
 
@@ -76,7 +77,7 @@ describe("Rocketship", function() {
 
     beforeEach(function(){
       spyOn(sprite, 'changeImageTo');
-      spyOn(Audio, 'play');
+      spyOn(Sound, 'play');
     });
 
     it("changes the image to display", function() {
@@ -91,7 +92,7 @@ describe("Rocketship", function() {
 
     it("plays a sound", function() {
       subject.collideWith(object);
-      expect(Audio.play).toHaveBeenCalledWith(Audio.explosion);
+      expect(Sound.play).toHaveBeenCalledWith(Sound.explosion);
     });
   });
 });
