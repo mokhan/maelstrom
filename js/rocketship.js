@@ -23,7 +23,7 @@ Rocketship.prototype.redrawOn = function(world) {
 };
 
 Rocketship.prototype.collideWith = function(otherProp) {
-  this.sprite.crash(Images.explosion);
+  this.sprite.changeImageTo(Images.explosion);
 };
 
 module.exports = Rocketship;

@@ -1,6 +1,7 @@
 describe("Sprite", function(){
   var Sprite = require('../js/sprite.js');
   var Heading = require('../js/heading.js');
+  var Images = require('../js/images.js');
   var subject;
 
   describe("forward", function() {
@@ -226,6 +227,17 @@ describe("Sprite", function(){
       subject = new Sprite({ heading: originalHeading });
       subject.chooseRandomHeading();
       expect(subject.heading).not.toEqual(originalHeading);
+    });
+  });
+
+  describe ("changeImageTo", function() {
+    it("loads the new image", function() {
+      var newImage = {};
+      spyOn(Images, 'load').and.returnValue(newImage);
+      subject = new Sprite({ });
+
+      subject.changeImageTo(Images.explosion);
+      expect(subject.image).toEqual(newImage);
     });
   });
 });

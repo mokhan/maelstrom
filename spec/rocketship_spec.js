@@ -6,7 +6,7 @@ describe("Rocketship", function() {
   var sprite;
 
   beforeEach(function(){
-    sprite = { moveLeft: null, moveRight: null, moveForward: null, crash: null };
+    sprite = { moveLeft: null, moveRight: null, moveForward: null, changeImageTo: null };
     subject = new Rocketship(sprite);
   });
 
@@ -57,14 +57,15 @@ describe("Rocketship", function() {
   });
 
   describe("collideWith", function() {
+    var object = {};
+
     beforeEach(function(){
-      spyOn(sprite, 'crash');
+      spyOn(sprite, 'changeImageTo');
     });
 
-    it("dies", function() {
-      var object = {};
+    it("changes the image to display", function() {
       subject.collideWith(object);
-      expect(sprite.crash).toHaveBeenCalledWith(Images.explosion);
+      expect(sprite.changeImageTo).toHaveBeenCalledWith(Images.explosion);
     });
   });
 });

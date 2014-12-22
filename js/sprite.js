@@ -1,4 +1,5 @@
 var Heading = require('./heading.js');
+var Images = require('./images.js');
 
 function Sprite(options){
   _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight', 'move');
@@ -52,6 +53,10 @@ Sprite.prototype.location = function() {
 
 Sprite.prototype.chooseRandomHeading = function() {
   this.heading = Heading.random();
+};
+
+Sprite.prototype.changeImageTo = function(image) {
+  this.image = Images.load(image);
 };
 
 module.exports = Sprite;
