@@ -1,5 +1,5 @@
 function World(options){
-  _.bindAll(this, 'add', 'bindTo', 'draw', 'run', 'render');
+  _.bindAll(this, 'add', 'bindTo', 'draw', 'run', 'render', 'detectCollisions', 'eachProp');
   this.props = [];
   this.height = options.height;
   this.width = options.width;
@@ -25,7 +25,7 @@ World.prototype.draw = function(callback) {
 World.prototype.run = function(game){
   var that = this;
   this.clearCanvas();
-  _.each(this.props, function(prop){
+  this.eachProp(function(prop){
     prop.redrawOn(that);
   });
   this.detectCollisions();
@@ -45,7 +45,26 @@ World.prototype.render = function(sprite) {
 };
 
 World.prototype.detectCollisions = function() {
-  
+  var that = this;
+  this.eachProp(function(prop){
+    that.eachProp(function(otherProp){
+      if (that.collision(prop, otherProp)) {
+        prop.collideWith(otherProp);
+      }
+    });
+  });
+};
+
+World.prototype.collision = function(prop, otherProp) {
+  var dx = (prop.x + prop.radius) - (otherProp.x + otherProp.radius);
+  var dy = (prop.y + prop.radius) - (otherProp.y + otherProp.radius);
+  var distance = Math.sqrt(dx * dx + dy * dy);
+
+  return distance < prop.radius + otherProp.radius;
+};
+
+World.prototype.eachProp = function(callback) {
+  _.each(this.props, callback);
 };
 
 module.exports = World;
