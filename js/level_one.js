@@ -21,9 +21,9 @@ LevelOne.prototype.setup = function(world) {
   }
   world.add(new Rocketship(new Sprite({
     x: 250,
-    y: 250,
+    y: 400,
     heading: Heading.NORTH,
-    speed: 1,
+    speed: 2,
     image: Images.load(Images.player),
   })));
 };
