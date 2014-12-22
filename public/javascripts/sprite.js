@@ -29,18 +29,7 @@ Sprite.prototype.move = function(world, heading) {
   var x = this.x + (this.speed * Math.round(Math.cos(heading)));
   var y = this.y + (this.speed * Math.round(Math.sin(heading)));
 
-  if (x < 0) { x = world.width; }
-  if (x > world.width) { x = 0; }
-  if (y < 0) { y = world.height; }
-  if (y > world.height) { y = 0; }
-
-  return new Sprite({
-    x: x,
-    y: y,
-    heading: this.heading,
-    speed: this.speed,
-    image: this.image,
-  });
+  return this.moveTo(world, x, y);
 };
 
 Sprite.prototype.drawOn = function(canvas) {
@@ -57,6 +46,21 @@ Sprite.prototype.chooseRandomHeading = function() {
 
 Sprite.prototype.changeImageTo = function(image) {
   this.image = Images.load(image);
+};
+
+Sprite.prototype.moveTo = function(world, x, y) {
+  if (x < 0) { x = world.width; }
+  if (x > world.width) { x = 0; }
+  if (y < 0) { y = world.height; }
+  if (y > world.height) { y = 0; }
+
+  return new Sprite({
+    x: x,
+    y: y,
+    heading: this.heading,
+    speed: this.speed,
+    image: this.image,
+  });
 };
 
 module.exports = Sprite;

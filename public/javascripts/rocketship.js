@@ -11,7 +11,7 @@ function Rocketship(sprite){
 Rocketship.prototype.redrawOn = function(world) {
   if (this.isDead()) {
     if (Key.isDown(Key.ENTER)) {
-      this.alive();
+      this.alive(world);
     }
   } else {
     if (Key.isDown(Key.LEFT)) {
@@ -46,10 +46,10 @@ Rocketship.prototype.die = function() {
   Sound.play(Sound.explosion);
 };
 
-Rocketship.prototype.alive = function() {
+Rocketship.prototype.alive = function(world) {
   this.dead = false;
   this.sprite.changeImageTo(Images.rocketship);
-  this.sprite.moveTo({x: 250, y: 400});
+  this.sprite = this.sprite.moveTo(world, 250, 400);
 };
 
 module.exports = Rocketship;

@@ -240,4 +240,19 @@ describe("Sprite", function(){
       expect(subject.image).toEqual(newImage);
     });
   });
+
+  describe ("moveTo", function() {
+    var world;
+
+    beforeEach(function(){
+      world = {width: 500, height: 500};
+      subject = new Sprite({x: 50, y: 50, heading: Heading.NORTH });
+    });
+
+    it ("moves the sprite to the new position", function() {
+      var result = subject.moveTo(world, 100, 200);
+      expect(result.x).toEqual(100);
+      expect(result.y).toEqual(200);
+    });
+  });
 });

@@ -83,7 +83,7 @@ describe("Rocketship", function() {
           subject.redrawOn(world);
           expect(subject.isDead()).toEqual(false);
           expect(sprite.changeImageTo).toHaveBeenCalledWith(Images.rocketship);
-          expect(sprite.moveTo).toHaveBeenCalledWith({x: 250, y: 400});
+          expect(sprite.moveTo).toHaveBeenCalledWith(world, 250, 400);
         });
       });
     });
