@@ -1,5 +1,5 @@
 describe("Clock", function(){
-  var Clock = require('../js/clock.js');
+  var Clock = require('../public/javascripts/clock.js');
   _ = require('underscore');
   var subject;
   var window;

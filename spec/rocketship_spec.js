@@ -1,7 +1,7 @@
 describe("Rocketship", function() {
-  var Rocketship = require('../js/rocketship.js');
-  var Key = require('../js/keyboard.js');
-  var Images = require('../js/images.js');
+  var Rocketship = require('../public/javascripts/rocketship.js');
+  var Key = require('../public/javascripts/keyboard.js');
+  var Images = require('../public/javascripts/images.js');
   var subject;
   var sprite;
 

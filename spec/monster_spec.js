@@ -1,5 +1,5 @@
-var Monster = require("../js/monster.js");
-var Rocketship = require("../js/rocketship.js");
+var Monster = require("../public/javascripts/monster.js");
+var Rocketship = require("../public/javascripts/rocketship.js");
 
 describe ("Monster", function() {
   var subject;

@@ -16,6 +16,6 @@ levelOne.setup(world);
 
 var game = new Game();
 game.add(new Clock(window).run);
-game.add(new Music("music/main.mp3", window).run);
+game.add(new Music("audio/main.mp3", window).run);
 game.add(world.run);
 game.run();

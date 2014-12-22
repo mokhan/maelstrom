@@ -1,5 +1,5 @@
 describe("World", function(){
-  var World = require("../js/world.js");
+  var World = require("../public/javascripts/world.js");
   var subject;
 
   beforeEach(function(){

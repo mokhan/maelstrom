@@ -1,7 +1,7 @@
 describe("Sprite", function(){
-  var Sprite = require('../js/sprite.js');
-  var Heading = require('../js/heading.js');
-  var Images = require('../js/images.js');
+  var Sprite = require('../public/javascripts/sprite.js');
+  var Heading = require('../public/javascripts/heading.js');
+  var Images = require('../public/javascripts/images.js');
   var subject;
 
   describe("forward", function() {

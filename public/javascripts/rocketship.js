@@ -1,5 +1,5 @@
 var Key = require('./keyboard.js');
-var Images = require('../js/images.js');
+var Images = require('./images.js');
 
 function Rocketship(sprite){
   _.bindAll(this, 'redrawOn', 'collideWith', 'isDead', 'die');
