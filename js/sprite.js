@@ -1,3 +1,5 @@
+var Heading = require('./heading.js');
+
 function Sprite(uri, coordinate) {
   _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight', 'drawOn', 'location');
   this.image = new Image();
@@ -27,6 +29,10 @@ Sprite.prototype.location = function() {
     y: this.coordinate.y,
     radius: this.image.width/2,
   };
+};
+
+Sprite.prototype.chooseRandomHeading = function() {
+  this.coordinate.heading = Heading.random();
 };
 
 module.exports = Sprite;
