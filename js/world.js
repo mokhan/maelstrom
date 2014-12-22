@@ -48,7 +48,7 @@ World.prototype.detectCollisions = function() {
   var that = this;
   this.eachProp(function(prop){
     that.eachProp(function(otherProp){
-      if (that.collision(prop.location(), otherProp.location())) {
+      if (that.collision(prop.sprite.location(), otherProp.sprite.location())) {
         prop.collideWith(otherProp);
       }
     });

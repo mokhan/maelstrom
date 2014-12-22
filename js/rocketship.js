@@ -1,7 +1,7 @@
 var Key = require('./keyboard.js');
 
 function Rocketship(sprite){
-  _.bindAll(this, 'redrawOn', 'location', 'collideWith');
+  _.bindAll(this, 'redrawOn', 'collideWith');
   this.sprite = sprite;
 }
 
@@ -19,10 +19,6 @@ Rocketship.prototype.redrawOn = function(world) {
   }
 
   world.render(this.sprite);
-};
-
-Rocketship.prototype.location = function() {
-  return this.sprite.location();
 };
 
 Rocketship.prototype.collideWith = function(otherProp) {

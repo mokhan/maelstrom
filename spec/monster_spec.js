@@ -35,7 +35,7 @@ describe ("Monster", function() {
         subject.redrawOn(world);
 
         expect(sprite.moveForward).not.toHaveBeenCalledWith(world);
-        expect(world.render).not.toHaveBeenCalledWith(sprite);
+        expect(world.render).toHaveBeenCalledWith(sprite);
       });
     });
   });

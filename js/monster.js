@@ -1,21 +1,16 @@
 var Utility = require('./utility.js');
 
 function Monster(sprite){
-  _.bindAll(this, 'redrawOn', 'location', 'collideWith');
+  _.bindAll(this, 'redrawOn', 'collideWith');
   this.sprite = sprite;
   this.stop = false;
 }
 
 Monster.prototype.redrawOn = function(world) {
-  if (this.stop) {
-    return;
+  if (this.isMoving()) {
+    this.sprite = this.sprite.moveForward(world);
   }
-  this.sprite = this.sprite.moveForward(world);
   world.render(this.sprite);
-};
-
-Monster.prototype.location = function() {
-  return this.sprite.location();
 };
 
 Monster.prototype.collideWith = function(otherProp) {
