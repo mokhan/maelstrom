@@ -6,6 +6,7 @@ module.exports = {
   RIGHT: 39,
   DOWN: 40,
   SPACE: 32,
+  ENTER: 13,
 
   isDown: function(keyCode) {
     return this._pressed[keyCode];

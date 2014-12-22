@@ -1,6 +1,6 @@
 module.exports = {
   monster: 'img/enemy.bmp',
-  player: 'img/player.bmp',
+  rocketship: 'img/player.bmp',
   explosion: 'img/explode.bmp',
   load: function(uri){
     var image = new Image();

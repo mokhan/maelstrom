@@ -57,17 +57,32 @@ describe("Rocketship", function() {
     });
 
     describe ("when dead", function() {
-      it("stops moving", function() {
-        spyOn(Key, 'isDown').and.returnValue(true);
-        spyOn(sprite, 'changeImageTo').and.returnValue(undefined);
-        spyOn(Sound, 'play');
+      beforeEach(function(){
+        subject.dead = true;
+      });
 
-        subject.collideWith({});
+      it("stops moving", function() {
+        spyOn(Key, 'isDown').and.callFake(function(key) {
+          return key !== Key.ENTER;
+        });
 
         subject.redrawOn(world);
         expect(sprite.moveForward).not.toHaveBeenCalled();
         expect(sprite.moveLeft).not.toHaveBeenCalled();
         expect(sprite.moveRight).not.toHaveBeenCalled();
+        expect(subject.isDead()).toEqual(true);
+      });
+
+      describe ("when ENTER is pressed", function() {
+        it("respawns", function() {
+          spyOn(sprite, 'changeImageTo');
+          spyOn(Key, 'isDown').and.callFake(function(key) {
+            return key === Key.ENTER;
+          });
+          subject.redrawOn(world);
+          expect(subject.isDead()).toEqual(false);
+          expect(sprite.changeImageTo).toHaveBeenCalledWith(Images.rocketship);
+        });
       });
     });
   });

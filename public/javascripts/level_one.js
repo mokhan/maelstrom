@@ -24,7 +24,7 @@ LevelOne.prototype.setup = function(world) {
     y: 400,
     heading: Heading.NORTH,
     speed: 2,
-    image: Images.load(Images.player),
+    image: Images.load(Images.rocketship),
   })));
 };
 

@@ -3,13 +3,17 @@ var Images = require('./images.js');
 var Sound = require('./sound.js');
 
 function Rocketship(sprite){
-  _.bindAll(this, 'redrawOn', 'collideWith', 'isDead', 'die');
+  _.bindAll(this, 'redrawOn', 'collideWith', 'isDead', 'die', 'alive');
   this.sprite = sprite;
   this.dead = false;
 }
 
 Rocketship.prototype.redrawOn = function(world) {
-  if (this.isDead() === false) {
+  if (this.isDead()) {
+    if (Key.isDown(Key.ENTER)) {
+      this.alive();
+    }
+  } else {
     if (Key.isDown(Key.LEFT)) {
       this.sprite = this.sprite.moveLeft(world);
     }
@@ -40,6 +44,11 @@ Rocketship.prototype.die = function() {
   this.dead = true;
   this.sprite.changeImageTo(Images.explosion);
   Sound.play(Sound.explosion);
+};
+
+Rocketship.prototype.alive = function() {
+  this.dead = false;
+  this.sprite.changeImageTo(Images.rocketship);
 };
 
 module.exports = Rocketship;
