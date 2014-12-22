@@ -1,5 +1,5 @@
-describe("Coordinate", function(){
-  var Coordinate = require('../js/coordinate.js');
+describe("Sprite", function(){
+  var Sprite = require('../js/sprite.js');
   var Heading = require('../js/heading.js');
   var subject;
 
@@ -12,16 +12,16 @@ describe("Coordinate", function(){
 
     describe ("when heading north", function() {
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 100, heading: Heading.NORTH, speed: 1 });
+        subject = new Sprite({x: 100, y: 100, heading: Heading.NORTH, speed: 1 });
 
-        result = subject.moveForward(world);
+        var result = subject.moveForward(world);
         expect(result.x).toEqual(100);
         expect(result.y).toEqual(99);
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 0, y: 0, heading: Heading.NORTH, speed: 1 });
-        result = subject.moveForward(world);
+        subject = new Sprite({ x: 0, y: 0, heading: Heading.NORTH, speed: 1 });
+        var result = subject.moveForward(world);
 
         expect(result.x).toEqual(0);
         expect(result.y).toEqual(world.height);
@@ -30,15 +30,15 @@ describe("Coordinate", function(){
 
     describe ("when heading east", function() {
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 50, y: 50, heading: Heading.EAST, speed: 1});
-        result = subject.moveForward(world);
+        subject = new Sprite({x: 50, y: 50, heading: Heading.EAST, speed: 1});
+        var result = subject.moveForward(world);
         expect(result.x).toEqual(51);
         expect(result.y).toEqual(50);
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({x: world.width, y: 0, heading: Heading.EAST, speed: 1});
-        result = subject.moveForward(world);
+        subject = new Sprite({x: world.width, y: 0, heading: Heading.EAST, speed: 1});
+        var result = subject.moveForward(world);
 
         expect(result.x).toEqual(0);
         expect(result.y).toEqual(0);
@@ -47,16 +47,16 @@ describe("Coordinate", function(){
 
     describe ("when heading west", function() {
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 100, heading: Heading.WEST, speed: 1 });
-        result = subject.moveForward(world);
+        subject = new Sprite({x: 100, y: 100, heading: Heading.WEST, speed: 1 });
+        var result = subject.moveForward(world);
 
         expect(result.x).toEqual(99);
         expect(result.y).toEqual(100);
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 0, y: 0, heading: Heading.WEST, speed: 1 });
-        result = subject.moveForward(world);
+        subject = new Sprite({ x: 0, y: 0, heading: Heading.WEST, speed: 1 });
+        var result = subject.moveForward(world);
 
         expect(result.x).toEqual(world.width);
         expect(result.y).toEqual(0);
@@ -65,18 +65,18 @@ describe("Coordinate", function(){
 
     describe ("when heading south", function() {
       it ("advances forward one space", function() {
-        subject = new Coordinate({x: 100, y: 50, heading: Heading.SOUTH, speed: 1});
+        subject = new Sprite({x: 100, y: 50, heading: Heading.SOUTH, speed: 1});
 
-        result = subject.moveForward(world);
+        var result = subject.moveForward(world);
 
         expect(result.x).toEqual(100);
         expect(result.y).toEqual(51);
       });
 
       it ("rolls around to the other side of the world", function() {
-        subject = new Coordinate({ x: 0, y: 100, heading: Heading.SOUTH, speed: 1 });
+        subject = new Sprite({ x: 0, y: 100, heading: Heading.SOUTH, speed: 1 });
 
-        result = subject.moveForward(world);
+        var result = subject.moveForward(world);
 
         expect(result.x).toEqual(0);
         expect(result.y).toEqual(0);
@@ -93,8 +93,8 @@ describe("Coordinate", function(){
 
     describe ("heading NORTH", function() {
       it ("moves to the left", function() {
-        subject = new Coordinate({ x: 50, y: 50, heading: Heading.NORTH, speed: 1 });
-        result = subject.moveLeft(world);
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.NORTH, speed: 1 });
+        var result = subject.moveLeft(world);
 
         expect(result.heading).toEqual(Heading.NORTH);
         expect(result.x).toEqual(49);
@@ -104,8 +104,8 @@ describe("Coordinate", function(){
 
     describe ("heading SOUTH", function() {
       it ("moves to the left", function() {
-        subject = new Coordinate({ x: 50, y: 50, heading: Heading.SOUTH, speed: 1 });
-        result = subject.moveLeft(world);
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.SOUTH, speed: 1 });
+        var result = subject.moveLeft(world);
 
         expect(result.heading).toEqual(Heading.SOUTH);
         expect(result.x).toEqual(51);
@@ -115,8 +115,8 @@ describe("Coordinate", function(){
 
     describe ("heading EAST", function() {
       it ("moves to the left", function() {
-        subject = new Coordinate({ x: 50, y: 50, heading: Heading.EAST, speed: 1 });
-        result = subject.moveLeft(world);
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.EAST, speed: 1 });
+        var result = subject.moveLeft(world);
 
         expect(result.heading).toEqual(Heading.EAST);
         expect(result.x).toEqual(50);
@@ -126,8 +126,8 @@ describe("Coordinate", function(){
 
     describe ("heading WEST", function() {
       it ("moves to the left", function() {
-        subject = new Coordinate({ x: 50, y: 50, heading: Heading.WEST, speed: 1 });
-        result = subject.moveLeft(world);
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.WEST, speed: 1 });
+        var result = subject.moveLeft(world);
 
         expect(result.heading).toEqual(Heading.WEST);
         expect(result.x).toEqual(50);
@@ -145,8 +145,8 @@ describe("Coordinate", function(){
 
     describe("heading NORTH", function(){
       it ("moves to the right", function() {
-        subject = new Coordinate({ x: 50, y: 50, heading: Heading.NORTH, speed: 1 });
-        result = subject.moveRight(world);
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.NORTH, speed: 1 });
+        var result = subject.moveRight(world);
 
         expect(result.heading).toEqual(Heading.NORTH);
         expect(result.x).toEqual(51);
@@ -156,8 +156,8 @@ describe("Coordinate", function(){
 
     describe("heading EAST", function(){
       it ("moves to the right", function() {
-        subject = new Coordinate({ x: 50, y: 50, heading: Heading.EAST, speed: 1 });
-        result = subject.moveRight(world);
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.EAST, speed: 1 });
+        var result = subject.moveRight(world);
 
         expect(result.heading).toEqual(Heading.EAST);
         expect(result.x).toEqual(50);
@@ -167,8 +167,8 @@ describe("Coordinate", function(){
 
     describe("heading SOUTH", function(){
       it ("moves to the right", function() {
-        subject = new Coordinate({ x: 50, y: 50, heading: Heading.SOUTH, speed: 1 });
-        result = subject.moveRight(world);
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.SOUTH, speed: 1 });
+        var result = subject.moveRight(world);
 
         expect(result.heading).toEqual(Heading.SOUTH);
         expect(result.x).toEqual(49);
@@ -178,13 +178,54 @@ describe("Coordinate", function(){
 
     describe("heading WEST", function(){
       it ("moves to the right", function() {
-        subject = new Coordinate({ x: 50, y: 50, heading: Heading.WEST, speed: 1 });
-        result = subject.moveRight(world);
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.WEST, speed: 1 });
+        var result = subject.moveRight(world);
 
         expect(result.heading).toEqual(Heading.WEST);
         expect(result.x).toEqual(50);
         expect(result.y).toEqual(49);
       });
+    });
+  });
+
+  describe ("drawOn", function() {
+    var image;
+
+    beforeEach(function(){
+      image = {};
+      subject = new Sprite({ x: 50, y: 50, heading: Heading.WEST, speed: 1, image: image });
+    });
+
+    it("draws an image on the canvas", function() {
+      var canvas = { drawImage: function(){} };
+      spyOn(canvas, 'drawImage');
+
+      subject.drawOn(canvas);
+
+      expect(canvas.drawImage).toHaveBeenCalledWith(image, subject.x, subject.y);
+    });
+  });
+
+  describe ("location", function() {
+    it ("returns the current location", function() {
+      var image = { width: 32 };
+      var halfOfImageWidth = 16;
+      subject = new Sprite({ x: 50, y: 50, heading: Heading.WEST, image: image });
+
+      var result = subject.location();
+
+      expect(result.x).toEqual(subject.x);
+      expect(result.y).toEqual(subject.y);
+      expect(result.radius).toEqual(halfOfImageWidth);
+    });
+  });
+
+  describe("chooseRandomHeading", function() {
+    it ("chooses a new heading", function() {
+      var originalHeading = Heading.random();
+      subject = new Sprite({ heading: originalHeading });
+      subject.chooseRandomHeading();
+      expect(subject.heading).not.toEqual(originalHeading);
     });
   });
 });

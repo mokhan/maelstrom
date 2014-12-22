@@ -10,7 +10,7 @@ Monster.prototype.redrawOn = function(world) {
   if (this.stop) {
     return;
   }
-  this.sprite.moveForward(world);
+  this.sprite = this.sprite.moveForward(world);
   world.render(this.sprite);
 };
 

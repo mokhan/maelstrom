@@ -7,15 +7,15 @@ function Rocketship(sprite){
 
 Rocketship.prototype.redrawOn = function(world) {
   if (Key.isDown(Key.LEFT)) {
-    this.sprite.moveLeft(world);
+    this.sprite = this.sprite.moveLeft(world);
   }
 
   if (Key.isDown(Key.RIGHT)) {
-    this.sprite.moveRight(world);
+    this.sprite = this.sprite.moveRight(world);
   }
 
   if (Key.isDown(Key.UP)) {
-    this.sprite.moveForward(world);
+    this.sprite = this.sprite.moveForward(world);
   }
 
   world.render(this.sprite);

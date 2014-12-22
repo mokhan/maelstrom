@@ -1,38 +1,56 @@
 var Heading = require('./heading.js');
 
-function Sprite(uri, coordinate) {
-  _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight', 'drawOn', 'location');
-  this.image = new Image();
-  this.image.src = uri;
-  this.coordinate = coordinate;
+function Sprite(options){
+  _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight', 'move');
+  this.x = options.x;
+  this.y = options.y;
+  this.heading = options.heading;
+  this.speed = options.speed;
+  this.image = options.image;
 }
 
 Sprite.prototype.moveForward = function(world) {
-  this.coordinate = this.coordinate.moveForward(world);
+  return this.move(world, this.heading);
 };
 
 Sprite.prototype.moveLeft = function(world) {
-  this.coordinate = this.coordinate.moveLeft(world);
+  var leftRotation = this.heading + ((Math.PI / 2) * -1);
+  return this.move(world, leftRotation);
 };
 
 Sprite.prototype.moveRight = function(world) {
-  this.coordinate = this.coordinate.moveRight(world);
+  var rightRotation = this.heading + (Math.PI / 2);
+  return this.move(world, rightRotation);
+};
+
+Sprite.prototype.move = function(world, heading) {
+  var x = this.x + (this.speed * Math.round(Math.cos(heading)));
+  var y = this.y + (this.speed * Math.round(Math.sin(heading)));
+
+  if (x < 0) { x = world.width; }
+  if (x > world.width) { x = 0; }
+  if (y < 0) { y = world.height; }
+  if (y > world.height) { y = 0; }
+
+  return new Sprite({
+    x: x,
+    y: y,
+    heading: this.heading,
+    speed: this.speed,
+    image: this.image,
+  });
 };
 
 Sprite.prototype.drawOn = function(canvas) {
-  canvas.drawImage(this.image, this.coordinate.x, this.coordinate.y);
+  canvas.drawImage(this.image, this.x, this.y);
 };
 
 Sprite.prototype.location = function() {
-  return {
-    x: this.coordinate.x,
-    y: this.coordinate.y,
-    radius: this.image.width/2,
-  };
+  return { x: this.x, y: this.y, radius: this.image.width/2, };
 };
 
 Sprite.prototype.chooseRandomHeading = function() {
-  this.coordinate.heading = Heading.random();
+  this.heading = Heading.random();
 };
 
 module.exports = Sprite;

@@ -13,7 +13,7 @@ describe ("Monster", function() {
     var world = { render: function(){} };
 
     beforeEach(function(){
-      spyOn(sprite, 'moveForward');
+      spyOn(sprite, 'moveForward').and.returnValue(sprite);
       spyOn(world, 'render');
     });
 
