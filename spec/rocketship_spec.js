@@ -94,5 +94,15 @@ describe("Rocketship", function() {
       subject.collideWith(object);
       expect(Sound.play).toHaveBeenCalledWith(Sound.explosion);
     });
+
+    describe("when dead", function() {
+      it("cannot die again", function() {
+        subject.dead = true;
+
+        subject.collideWith(object);
+        expect(Sound.play).not.toHaveBeenCalledWith(Sound.explosion);
+        expect(sprite.changeImageTo).not.toHaveBeenCalledWith(Images.explosion);
+      });
+    });
   });
 });

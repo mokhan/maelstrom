@@ -27,7 +27,9 @@ Rocketship.prototype.redrawOn = function(world) {
 };
 
 Rocketship.prototype.collideWith = function(otherProp) {
-  this.die();
+  if (this.isDead() === false) {
+    this.die();
+  }
 };
 
 Rocketship.prototype.isDead = function() {
