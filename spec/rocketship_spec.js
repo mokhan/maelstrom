@@ -7,7 +7,7 @@ describe("Rocketship", function() {
   var sprite;
 
   beforeEach(function(){
-    sprite = { moveLeft: null, moveRight: null, moveForward: null, changeImageTo: null, moveTo: null };
+    sprite = { moveLeft: null, moveRight: null, moveForward: null, changeImageTo: null, moveTo: null, fire: null };
     subject = new Rocketship(sprite);
   });
 
@@ -20,6 +20,7 @@ describe("Rocketship", function() {
       spyOn(sprite, 'moveLeft').and.returnValue(sprite);
       spyOn(sprite, 'moveRight').and.returnValue(sprite);
       spyOn(sprite, 'moveForward').and.returnValue(sprite);
+      spyOn(sprite, 'fire');
     });
 
     it ("renders the sprite in the world", function() {
@@ -54,6 +55,15 @@ describe("Rocketship", function() {
 
       subject.redrawOn(world);
       expect(sprite.moveForward).toHaveBeenCalledWith(world);
+    });
+
+    it ("fires a laser", function() {
+      spyOn(Key, 'isDown').and.callFake(function(key){
+        return key === Key.SPACE;
+      });
+
+      subject.redrawOn(world);
+      expect(sprite.fire).toHaveBeenCalledWith(Images.laser, world);
     });
 
     describe ("when dead", function() {
