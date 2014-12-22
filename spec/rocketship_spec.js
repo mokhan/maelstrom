@@ -7,7 +7,7 @@ describe("Rocketship", function() {
   var sprite;
 
   beforeEach(function(){
-    sprite = { moveLeft: null, moveRight: null, moveForward: null, changeImageTo: null };
+    sprite = { moveLeft: null, moveRight: null, moveForward: null, changeImageTo: null, moveTo: null };
     subject = new Rocketship(sprite);
   });
 
@@ -76,12 +76,14 @@ describe("Rocketship", function() {
       describe ("when ENTER is pressed", function() {
         it("respawns", function() {
           spyOn(sprite, 'changeImageTo');
+          spyOn(sprite, 'moveTo');
           spyOn(Key, 'isDown').and.callFake(function(key) {
             return key === Key.ENTER;
           });
           subject.redrawOn(world);
           expect(subject.isDead()).toEqual(false);
           expect(sprite.changeImageTo).toHaveBeenCalledWith(Images.rocketship);
+          expect(sprite.moveTo).toHaveBeenCalledWith({x: 250, y: 400});
         });
       });
     });
@@ -92,6 +94,7 @@ describe("Rocketship", function() {
 
     beforeEach(function(){
       spyOn(sprite, 'changeImageTo');
+      spyOn(sprite, 'moveTo');
       spyOn(Sound, 'play');
     });
 

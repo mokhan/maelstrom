@@ -49,6 +49,7 @@ Rocketship.prototype.die = function() {
 Rocketship.prototype.alive = function() {
   this.dead = false;
   this.sprite.changeImageTo(Images.rocketship);
+  this.sprite.moveTo({x: 250, y: 400});
 };
 
 module.exports = Rocketship;
