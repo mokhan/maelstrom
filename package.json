@@ -7,7 +7,7 @@
     "clean": "rm -fr dist/",
     "prebuild": "npm run clean && mkdir -p dist/js dist/css dist/img dist/audio",
     "build": "npm run build:js && npm run build:html && npm run build:css && npm run build:img && npm run build:audio",
-    "build:js": "browserify public/javascripts/index.js > dist/js/index.js",
+    "build:js": "browserify public/javascripts/application.js > dist/js/application.js",
     "build:html": "cp index.html dist/",
     "build:css": "cp public/stylesheets/*.css dist/css",
     "build:img": "cp public/images/* dist/img/",
