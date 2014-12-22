@@ -15,7 +15,6 @@ Monster.prototype.location = function() {
 };
 
 Monster.prototype.collideWith = function(otherProp) {
-  console.log("COLLISION with " + otherProp);
 };
 
 module.exports = Monster;

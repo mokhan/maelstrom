@@ -28,4 +28,13 @@ describe ("Monster", function() {
       expect(world.render).toHaveBeenCalledWith(sprite);
     });
   });
+
+  describe ("collideWith", function() {
+    it('changes direction when colliding with another monster', function(){
+      var otherMonster = new Monster(sprite);
+      var originalHeading = subject.heading();
+      subject.collideWith(otherMonster);
+      expect(subject.heading()).not.toEqual(originalHeading);
+    });
+  });
 });

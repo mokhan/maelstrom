@@ -1,5 +1,5 @@
 function Coordinate(options){
-  _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight');
+  _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight', 'move');
   this.x = options.x;
   this.y = options.y;
   this.heading = options.heading;
