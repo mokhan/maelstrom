@@ -70,7 +70,7 @@ describe("Rocketship", function() {
         expect(sprite.moveForward).not.toHaveBeenCalled();
         expect(sprite.moveLeft).not.toHaveBeenCalled();
         expect(sprite.moveRight).not.toHaveBeenCalled();
-        expect(subject.isDead()).toEqual(true);
+        expect(subject.dead).toEqual(true);
       });
 
       describe ("when ENTER is pressed", function() {
@@ -81,7 +81,7 @@ describe("Rocketship", function() {
             return key === Key.ENTER;
           });
           subject.redrawOn(world);
-          expect(subject.isDead()).toEqual(false);
+          expect(subject.dead).toEqual(false);
           expect(sprite.changeImageTo).toHaveBeenCalledWith(Images.rocketship);
           expect(sprite.moveTo).toHaveBeenCalledWith(world, 250, 400);
         });
@@ -105,7 +105,7 @@ describe("Rocketship", function() {
 
     it ("dies", function() {
       subject.collideWith(object);
-      expect(subject.isDead()).toEqual(true);
+      expect(subject.dead).toEqual(true);
     });
 
     it("plays a sound", function() {
