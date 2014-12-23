@@ -114,4 +114,16 @@ describe("World", function(){
       });
     });
   });
+
+  describe ("remove", function() {
+    it ("removes the prop from the world", function() {
+      var blah = {name: 'blah'};
+      var huh = {name: 'huh'};
+      subject.add(huh);
+      subject.add(blah);
+
+      subject.remove(blah);
+      expect(subject.props.length).toEqual(1);
+    });
+  });
 });

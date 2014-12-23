@@ -1,5 +1,5 @@
 function World(options){
-  _.bindAll(this, 'add', 'bindTo', 'draw', 'run', 'render', 'detectCollisions', 'eachProp');
+  _.bindAll(this, 'add', 'bindTo', 'draw', 'run', 'render', 'detectCollisions', 'eachProp', 'inBounds', 'remove');
   this.props = [];
   this.height = options.height;
   this.width = options.width;
@@ -78,6 +78,10 @@ World.prototype.inBounds = function(sprite) {
     return false;
   }
   return true;
+};
+
+World.prototype.remove = function(prop) {
+  this.props.splice(this.props.indexOf(prop), 1);
 };
 
 module.exports = World;
