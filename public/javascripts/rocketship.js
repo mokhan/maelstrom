@@ -1,6 +1,7 @@
 var Key = require('./keyboard.js');
 var Images = require('./images.js');
 var Sound = require('./sound.js');
+var Laser = require('./laser.js');
 
 function Rocketship(sprite){
   _.bindAll(this, 'redrawOn', 'collideWith', 'die', 'alive');
@@ -35,6 +36,9 @@ Rocketship.prototype.redrawOn = function(world) {
 };
 
 Rocketship.prototype.collideWith = function(otherProp) {
+  if (otherProp.constructor === Laser) {
+    return;
+  }
   if (this.dead === false) {
     this.die();
   }

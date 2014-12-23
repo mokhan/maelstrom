@@ -3,6 +3,7 @@ describe("Rocketship", function() {
   var Key = require('../public/javascripts/keyboard.js');
   var Images = require('../public/javascripts/images.js');
   var Sound = require('../public/javascripts/sound.js');
+  var Laser = require('../public/javascripts/laser.js');
   var subject;
   var sprite;
 
@@ -121,6 +122,15 @@ describe("Rocketship", function() {
     it("plays a sound", function() {
       subject.collideWith(object);
       expect(Sound.play).toHaveBeenCalledWith(Sound.explosion);
+    });
+
+    it("ignores its own lasers", function() {
+      var laser = new Laser({});
+      subject.collideWith(laser);
+
+      expect(Sound.play).not.toHaveBeenCalledWith(Sound.explosion);
+      expect(subject.dead).toEqual(false);
+      expect(sprite.changeImageTo).not.toHaveBeenCalledWith(Images.explosion);
     });
 
     describe("when dead", function() {
