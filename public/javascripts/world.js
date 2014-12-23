@@ -70,4 +70,14 @@ World.prototype.eachProp = function(callback) {
   _.each(this.props, callback);
 };
 
+World.prototype.inBounds = function(sprite) {
+  if (sprite.x > this.width || sprite.x < 0) {
+    return false;
+  }
+  if (sprite.y > this.height || sprite.y < 0) {
+    return false;
+  }
+  return true;
+};
+
 module.exports = World;
