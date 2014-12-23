@@ -9,8 +9,10 @@ function Monster(sprite){
 Monster.prototype.redrawOn = function(world) {
   if (this.isMoving()) {
     this.sprite = this.sprite.moveForward(world);
+    world.render(this.sprite);
+  } else {
+    world.remove(this);
   }
-  world.render(this.sprite);
 };
 
 Monster.prototype.collideWith = function(otherProp) {

@@ -10,7 +10,7 @@ describe ("Monster", function() {
   });
 
   describe("redrawOn", function() {
-    var world = { render: function(){} };
+    var world = { render: function(){}, remove: function(){} };
 
     beforeEach(function(){
       spyOn(sprite, 'moveForward').and.returnValue(sprite);
@@ -35,7 +35,6 @@ describe ("Monster", function() {
         subject.redrawOn(world);
 
         expect(sprite.moveForward).not.toHaveBeenCalledWith(world);
-        expect(world.render).toHaveBeenCalledWith(sprite);
       });
     });
   });
