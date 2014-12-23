@@ -1,5 +1,5 @@
 module.exports = {
-  _pressed: {},
+  keysPressed: {},
 
   LEFT: 37,
   UP: 38,
@@ -9,14 +9,14 @@ module.exports = {
   ENTER: 13,
 
   isDown: function(keyCode) {
-    return this._pressed[keyCode];
+    return this.keysPressed[keyCode];
   },
 
   onKeydown: function(event) {
-    this._pressed[event.keyCode] = true;
+    this.keysPressed[event.keyCode] = true;
   },
 
   onKeyup: function(event) {
-    delete this._pressed[event.keyCode];
+    delete this.keysPressed[event.keyCode];
   }
 };

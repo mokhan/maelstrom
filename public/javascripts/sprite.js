@@ -10,6 +10,10 @@ function Sprite(options){
   this.heading = options.heading;
   this.speed = options.speed;
   this.image = options.image;
+  this.wrapAround = options.wrapAround;
+  if (this.wrapAround === undefined) {
+    this.wrapAround = true;
+  }
   this.radius = this.image ? this.image.width / 2 : 0;
 }
 
@@ -51,10 +55,12 @@ Sprite.prototype.changeImageTo = function(image) {
 };
 
 Sprite.prototype.moveTo = function(world, x, y) {
-  if (x < 0) { x = world.width; }
-  if (x > world.width) { x = 0; }
-  if (y < 0) { y = world.height; }
-  if (y > world.height) { y = 0; }
+  if(this.wrapAround) {
+    if (x < 0) { x = world.width; }
+    if (x > world.width) { x = 0; }
+    if (y < 0) { y = world.height; }
+    if (y > world.height) { y = 0; }
+  }
 
   return new Sprite({
     x: x,
@@ -62,6 +68,7 @@ Sprite.prototype.moveTo = function(world, x, y) {
     heading: this.heading,
     speed: this.speed,
     image: this.image,
+    wrapAround: this.wrapAround,
   });
 };
 
@@ -72,6 +79,7 @@ Sprite.prototype.fire = function(world) {
     heading: Heading.NORTH,
     speed: 3,
     image: Images.load(Images.laser),
+    wrapAround: false,
   })));
 };
 

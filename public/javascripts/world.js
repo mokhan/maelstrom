@@ -67,7 +67,8 @@ World.prototype.collision = function(prop, otherProp) {
 };
 
 World.prototype.eachProp = function(callback) {
-  _.each(this.props, callback);
+  var current = this.props.slice(0);
+  _.each(current, callback);
 };
 
 World.prototype.inBounds = function(sprite) {
