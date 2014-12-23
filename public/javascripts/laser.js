@@ -1,5 +1,5 @@
 function Laser(sprite) {
-  _.bindAll(this, 'redrawOn');
+  _.bindAll(this, 'redrawOn', 'collideWith');
   this.sprite = sprite;
 }
 
