@@ -4,8 +4,12 @@ function Laser(sprite) {
 }
 
 Laser.prototype.redrawOn = function(world) {
-  this.sprite = this.sprite.moveForward(world);
-  world.render(this.sprite);
+  if (world.inBounds(this.sprite)) {
+    this.sprite = this.sprite.moveForward(world);
+    world.render(this.sprite);
+  } else {
+    world.remove(this);
+  }
 };
 
 Laser.prototype.collideWith = function(otherProp) {
