@@ -27,6 +27,10 @@ Rocketship.prototype.redrawOn = function(world) {
       this.sprite = this.sprite.moveForward(world);
     }
 
+    if (Key.isDown(Key.DOWN)) {
+      this.sprite = this.sprite.moveBack(world);
+    }
+
     if (Key.isDown(Key.SPACE)) {
       this.sprite.fire(world);
     }
