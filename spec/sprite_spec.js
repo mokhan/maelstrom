@@ -85,6 +85,58 @@ describe("Sprite", function(){
     });
   });
 
+  describe ("moveBack", function() {
+    var world;
+
+    beforeEach(function(){
+      world = { width: 100, height: 100 };
+    });
+
+    describe ("heading NORTH", function() {
+      it ("moves south one space", function() {
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.NORTH, speed: 1 });
+        var result = subject.moveBack(world);
+
+        expect(result.heading).toEqual(Heading.NORTH);
+        expect(result.x).toEqual(50);
+        expect(result.y).toEqual(51);
+      });
+    });
+
+    describe ("heading SOUTH", function() {
+      it ("moves north one space", function() {
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.SOUTH, speed: 1 });
+        var result = subject.moveBack(world);
+
+        expect(result.heading).toEqual(Heading.SOUTH);
+        expect(result.x).toEqual(50);
+        expect(result.y).toEqual(49);
+      });
+    });
+
+    describe ("heading EAST", function() {
+      it ("moves west one space", function() {
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.EAST, speed: 1 });
+        var result = subject.moveBack(world);
+
+        expect(result.heading).toEqual(Heading.EAST);
+        expect(result.x).toEqual(49);
+        expect(result.y).toEqual(50);
+      });
+    });
+
+    describe ("heading WEST", function() {
+      it ("moves west one space", function() {
+        subject = new Sprite({ x: 50, y: 50, heading: Heading.WEST, speed: 1 });
+        var result = subject.moveBack(world);
+
+        expect(result.heading).toEqual(Heading.WEST);
+        expect(result.x).toEqual(51);
+        expect(result.y).toEqual(50);
+      });
+    });
+  });
+
   describe ("moveLeft", function() {
     var world;
 

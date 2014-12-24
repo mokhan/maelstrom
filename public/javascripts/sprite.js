@@ -21,6 +21,11 @@ Sprite.prototype.moveForward = function(world) {
   return this.move(world, this.heading);
 };
 
+Sprite.prototype.moveBack = function(world) {
+  var halfRotation = this.heading + Math.PI;
+  return this.move(world, halfRotation);
+};
+
 Sprite.prototype.moveLeft = function(world) {
   var leftRotation = this.heading + ((Math.PI / 2) * -1);
   return this.move(world, leftRotation);
