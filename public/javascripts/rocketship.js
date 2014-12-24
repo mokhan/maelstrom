@@ -7,6 +7,7 @@ function Rocketship(sprite){
   _.bindAll(this, 'redrawOn', 'collideWith', 'die', 'alive');
   this.sprite = sprite;
   this.dead = false;
+  this.coolDown = 0;
 }
 
 Rocketship.prototype.redrawOn = function(world) {
@@ -15,6 +16,7 @@ Rocketship.prototype.redrawOn = function(world) {
       this.alive(world);
     }
   } else {
+    this.coolDown -= 1;
     if (Key.isDown(Key.LEFT)) {
       this.sprite = this.sprite.moveLeft(world);
     }
@@ -31,7 +33,8 @@ Rocketship.prototype.redrawOn = function(world) {
       this.sprite = this.sprite.moveBack(world);
     }
 
-    if (Key.isDown(Key.SPACE)) {
+    if (Key.isDown(Key.SPACE) && this.coolDown <= 0) {
+      this.coolDown = 50;
       this.sprite.fire(world);
     }
   }
