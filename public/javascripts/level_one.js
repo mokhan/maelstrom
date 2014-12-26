@@ -13,8 +13,9 @@ function LevelOne(world){
 
 LevelOne.prototype.run = function(game) {
   if (this.countdown < 0) {
-    this.deployMonster();
-    this.countdown = 100;
+    if (this.world.props.length <= 10) {
+      this.deployMonster();
+    }
   }
 
   this.countdown -= 1;
@@ -29,6 +30,7 @@ LevelOne.prototype.deployMonster = function() {
     speed: Utility.randomIntFromRange(1, 3),
     image: Images.load(Images.monster),
   })));
+  this.countdown = 100;
 };
 
 LevelOne.prototype.deployShip = function() {
