@@ -6,7 +6,7 @@ var Images = require('./images.js');
 var Rocketship = require('./rocketship.js');
 
 function LevelOne(world){
-  _.bindAll(this, 'run');
+  _.bindAll(this, 'run', 'deployMonster', 'deployShip');
   this.world = world;
   this.countdown = 0;
 }
