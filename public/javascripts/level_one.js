@@ -13,18 +13,22 @@ function LevelOne(world){
 
 LevelOne.prototype.run = function(game) {
   if (this.countdown < 0) {
-    this.world.add(new Monster(new Sprite({
-      x: Utility.randomIntFromRange(0, this.world.width),
-      y: 0,
-      heading: Heading.random(),
-      speed: Utility.randomIntFromRange(1, 3),
-      image: Images.load(Images.monster),
-    })));
+    this.deployMonster();
     this.countdown = 100;
   }
 
   this.countdown -= 1;
   game.add(this.run);
+};
+
+LevelOne.prototype.deployMonster = function() {
+  this.world.add(new Monster(new Sprite({
+    x: Utility.randomIntFromRange(0, this.world.width),
+    y: 0,
+    heading: Heading.random(),
+    speed: Utility.randomIntFromRange(1, 3),
+    image: Images.load(Images.monster),
+  })));
 };
 
 LevelOne.prototype.deployShip = function() {
