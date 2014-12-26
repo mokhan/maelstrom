@@ -5,21 +5,30 @@ var Utility = require('./utility.js');
 var Images = require('./images.js');
 var Rocketship = require('./rocketship.js');
 
-function LevelOne(){
-  _.bindAll(this, 'setup');
+function LevelOne(world){
+  _.bindAll(this, 'run');
+  this.world = world;
+  this.countdown = 0;
 }
 
-LevelOne.prototype.setup = function(world) {
-  for (var i = 0; i < 10; i ++) {
-    world.add(new Monster(new Sprite({
-      x: Utility.randomIntFromRange(0, 512),
-      y: Utility.randomIntFromRange(0, 512),
+LevelOne.prototype.run = function(game) {
+  if (this.countdown < 0) {
+    this.world.add(new Monster(new Sprite({
+      x: Utility.randomIntFromRange(0, this.world.width),
+      y: 0,
       heading: Heading.random(),
       speed: Utility.randomIntFromRange(1, 3),
       image: Images.load(Images.monster),
     })));
+    this.countdown = 100;
   }
-  world.add(new Rocketship(new Sprite({
+
+  this.countdown -= 1;
+  game.add(this.run);
+};
+
+LevelOne.prototype.deployShip = function() {
+  this.world.add(new Rocketship(new Sprite({
     x: 250,
     y: 400,
     heading: Heading.NORTH,

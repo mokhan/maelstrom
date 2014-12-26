@@ -11,11 +11,12 @@ window.addEventListener('keydown', function(event) { Keyboard.onKeydown(event); 
 
 var world = new World({height: 512, width: 512}).bindTo(document);
 
-var levelOne = new LevelOne();
-levelOne.setup(world);
+var levelOne = new LevelOne(world);
+levelOne.deployShip();
 
 var game = new Game();
 game.add(new Clock(window).run);
+game.add(levelOne.run);
 game.add(new Music("audio/main.mp3", window).run);
 game.add(world.run);
 game.run();
