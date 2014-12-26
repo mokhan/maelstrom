@@ -15,7 +15,7 @@
     "lint": "jshint js/*.js",
     "test": "jasmine",
     "env": "env",
-    "server": "ruby -run -e httpd dist/ -p 9090"
+    "start": "ruby -run -e httpd dist/ -p 9090"
   },
   "repository": {
     "type": "git",

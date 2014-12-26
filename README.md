@@ -4,7 +4,7 @@
 
 ```bash
   npm install
-  npm run server
+  npm start
 ```
 
 Open a browser to http://localhost:9090/
