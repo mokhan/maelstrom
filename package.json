@@ -1,0 +1,38 @@
+{
+  "name": "maelstrom",
+  "version": "1.0.0",
+  "description": "MAELSTROM       =========",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -fr dist/",
+    "prebuild": "npm run clean && mkdir -p dist/js dist/css dist/img dist/audio",
+    "build": "npm run build:js && npm run build:html && npm run build:css && npm run build:img && npm run build:audio",
+    "build:js": "browserify public/javascripts/application.js > dist/js/application.js",
+    "build:html": "cp index.html dist/",
+    "build:css": "cp public/stylesheets/*.css dist/css",
+    "build:img": "cp public/images/* dist/img/",
+    "build:audio": "cp public/audio/* dist/audio/",
+    "lint": "jshint js/*.js",
+    "test": "jasmine",
+    "env": "env",
+    "server": "ruby -run -e httpd dist/ -p 9090"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/8bitreverie/maelstrom.git"
+  },
+  "author": "8bitreverie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/8bitreverie/maelstrom/issues"
+  },
+  "homepage": "https://github.com/8bitreverie/maelstrom",
+  "devDependencies": {
+    "browserify": "latest",
+    "jasmine": "latest",
+    "jshint": "latest"
+  },
+  "dependencies": {
+    "underscore": "latest"
+  }
+}
