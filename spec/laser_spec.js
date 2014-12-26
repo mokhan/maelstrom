@@ -1,5 +1,7 @@
 describe ("Laser", function() {
   var Laser = require('../public/javascripts/laser.js');
+  var Monster = require('../public/javascripts/monster.js');
+  var Sound = require('../public/javascripts/sound.js');
   var subject;
   var sprite;
 
@@ -36,6 +38,16 @@ describe ("Laser", function() {
         expect(sprite.moveForward).toHaveBeenCalledWith(world);
         expect(world.render).toHaveBeenCalledWith(sprite);
       });
+    });
+  });
+
+  describe ("collideWith", function() {
+    it ("plays a smash sound", function() {
+      spyOn(Sound, 'play');
+
+      var monster = new Monster({});
+      subject.collideWith(monster);
+      expect(Sound.play).toHaveBeenCalledWith(Sound.smash);
     });
   });
 });

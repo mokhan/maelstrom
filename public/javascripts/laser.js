@@ -1,4 +1,5 @@
 var Monster = require('./monster');
+var Sound = require('./sound');
 
 function Laser(sprite) {
   _.bindAll(this, 'redrawOn', 'collideWith');
@@ -23,6 +24,7 @@ Laser.prototype.redrawOn = function(world) {
 Laser.prototype.collideWith = function(otherProp) {
   if (otherProp.constructor === Monster) {
     this.destroyed = true;
+    Sound.play(Sound.smash);
   }
 };
 
