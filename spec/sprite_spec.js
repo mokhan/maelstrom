@@ -2,6 +2,7 @@ describe("Sprite", function(){
   var Sprite = require('../public/javascripts/sprite.js');
   var Heading = require('../public/javascripts/heading.js');
   var Images = require('../public/javascripts/images.js');
+  var Sound = require('../public/javascripts/sound.js');
   var subject;
 
   describe("forward", function() {
@@ -105,6 +106,7 @@ describe("Sprite", function(){
 
     describe ("heading SOUTH", function() {
       it ("moves north one space", function() {
+        var world = { width: 100, height: 100 };
         subject = new Sprite({ x: 50, y: 50, heading: Heading.SOUTH, speed: 1 });
         var result = subject.moveBack(world);
 
@@ -309,14 +311,23 @@ describe("Sprite", function(){
   });
 
   describe ("fire", function() {
-    it('adds a new laser to the world', function(){
-      world = { add: null};
+    var world;
+
+    beforeEach(function(){
+      world = { add: null };
       spyOn(world, 'add');
       spyOn(Images, 'load');
+      spyOn(Sound, 'play');
+    });
 
+    it('adds a new laser to the world', function(){
       subject.fire(world);
-
       expect(world.add).toHaveBeenCalled();
+    });
+
+    it("plays a sound", function() {
+      subject.fire(world);
+      expect(Sound.play).toHaveBeenCalledWith(Sound.laser);
     });
   });
 });

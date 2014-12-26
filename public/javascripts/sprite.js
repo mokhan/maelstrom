@@ -2,6 +2,7 @@ var Heading = require('./heading.js');
 var Images = require('./images.js');
 var Laser = require('./laser.js');
 var Images = require('./images.js');
+var Sound = require('./sound.js');
 
 function Sprite(options){
   _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight', 'move');
@@ -86,6 +87,7 @@ Sprite.prototype.fire = function(world) {
     image: Images.load(Images.laser),
     wrapAround: false,
   })));
+  Sound.play(Sound.laser);
 };
 
 module.exports = Sprite;

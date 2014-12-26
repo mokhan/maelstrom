@@ -109,7 +109,7 @@ describe("World", function(){
 
     describe ("when the sprite is in bounds", function() {
       it ("returns true", function() {
-        var sprite = { x: world.width - 1, y: world.height - 1 };
+        var sprite = { x: subject.width - 1, y: subject.height - 1 };
         expect(subject.inBounds(sprite)).toEqual(true);
       });
     });
