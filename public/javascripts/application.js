@@ -9,7 +9,7 @@ _ = require('underscore');
 window.addEventListener('keyup', function(event) { Keyboard.onKeyup(event); }, false);
 window.addEventListener('keydown', function(event) { Keyboard.onKeydown(event); }, false);
 
-var world = new World({height: 600, width: 800}).bindTo(document);
+var world = new World({height: 600, width: 960}).bindTo(document);
 var levelOne = new LevelOne(world);
 
 var game = new Game();

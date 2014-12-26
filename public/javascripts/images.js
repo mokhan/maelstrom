@@ -1,10 +1,10 @@
 module.exports = {
-  monster: 'img/enemy.bmp',
-  rocketship: 'img/player.bmp',
-  explosion: 'img/explode.bmp',
-  laser: 'img/explode.bmp',
+  monster: 'img/spider.gif',
+  rocketship: 'img/rocketship.png',
+  explosion: 'img/explosion.gif',
+  laser: 'img/laser.gif',
   load: function(uri){
-    var image = new Image();
+    var image = new Image(32, 32);
     image.src = uri;
     return image;
   },
