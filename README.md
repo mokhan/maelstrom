@@ -1,5 +1,6 @@
 # MAELSTROM
 
+[![Build Status](https://travis-ci.org/mokhan/maelstrom.svg?branch=master)](https://travis-ci.org/mokhan/maelstrom)
 [Demo](http://mokhan.github.io/maelstrom)
 
 ## Instructions
