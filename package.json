@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/8bitreverie/maelstrom.git"
+    "url": "https://github.com/mokhan/maelstrom.git"
   },
-  "author": "8bitreverie",
+  "author": "mokhan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/8bitreverie/maelstrom/issues"
+    "url": "https://github.com/mokhan/maelstrom/issues"
   },
-  "homepage": "https://github.com/8bitreverie/maelstrom",
+  "homepage": "https://github.com/mokhan/maelstrom",
   "devDependencies": {
     "browserify": "latest",
     "jasmine": "latest",
