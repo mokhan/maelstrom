@@ -1,4 +1,3 @@
-var Utility = require('./utility.js');
 var _ = require('underscore');
 
 function Monster(sprite){
