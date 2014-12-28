@@ -1,4 +1,10 @@
 language: node_js
-node_js: 
-  - "0.11"
-  - "0.10"
+node_js:
+- '0.11'
+- '0.10'
+addons:
+  code_climate:
+    repo_token:
+      secure: gfbqQ+Hu2EFxEckl27/Q4QEGfNrN0VbgoMSRr+G/CsV23gsJhNP9c/2NJrhSrrRo8AM5slBO+nKO1dEyWNtDNuOODYp8v5ndlA5yskDWgmF2teemBH62B2c24ylEFxcP/Ok7mzxj9cxwL+9OOeXyhsux8e2kX3Apv3tOI8Myqlg=
+after_script:
+- cat lcov.info | codeclimate
