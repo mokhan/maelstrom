@@ -2,7 +2,7 @@
   "name": "maelstrom",
   "version": "1.0.0",
   "description": "MAELSTROM       =========",
-  "main": "index.js",
+  "main": "application.js",
   "scripts": {
     "clean": "rm -fr dist/",
     "prebuild": "npm run clean && mkdir -p dist/js dist/css dist/img dist/audio",
@@ -30,7 +30,8 @@
   "homepage": "https://github.com/mokhan/maelstrom",
   "devDependencies": {
     "browserify": "latest",
-    "istanbul": "^0.3.5",
+    "codeclimate-test-reporter": "latest",
+    "istanbul": "latest",
     "jasmine": "latest",
     "jshint": "latest"
   },
