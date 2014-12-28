@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 function Game() {
   this.commands = [];
   _.bindAll(this, 'add', 'run');

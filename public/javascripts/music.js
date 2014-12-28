@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 function Music(url, window){
   _.bindAll(this, 'run', 'onLoad', 'onError');
   this.url = url;

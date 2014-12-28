@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 function World(options){
   _.bindAll(this, 'add', 'bindTo', 'draw', 'run', 'render', 'detectCollisions', 'eachProp', 'inBounds', 'remove');
   this.props = [];

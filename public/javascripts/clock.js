@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 function Clock(window){
   this.window = window;
   _.bindAll(this, 'run');

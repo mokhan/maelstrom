@@ -1,4 +1,5 @@
 var Utility = require('./utility.js');
+var _ = require('underscore');
 
 function Monster(sprite){
   _.bindAll(this, 'redrawOn', 'collideWith');

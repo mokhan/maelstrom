@@ -1,5 +1,6 @@
 var Monster = require('./monster');
 var Sound = require('./sound');
+var _ = require('underscore');
 
 function Laser(sprite) {
   _.bindAll(this, 'redrawOn', 'collideWith');

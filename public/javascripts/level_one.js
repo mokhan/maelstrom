@@ -4,6 +4,7 @@ var Heading = require('./heading.js');
 var Utility = require('./utility.js');
 var Images = require('./images.js');
 var Rocketship = require('./rocketship.js');
+var _ = require('underscore');
 
 function LevelOne(world){
   _.bindAll(this, 'run', 'deployMonster', 'deployShip');

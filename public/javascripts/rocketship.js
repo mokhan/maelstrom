@@ -2,6 +2,7 @@ var Key = require('./keyboard.js');
 var Images = require('./images.js');
 var Sound = require('./sound.js');
 var Laser = require('./laser.js');
+var _ = require('underscore');
 
 function Rocketship(sprite){
   _.bindAll(this, 'redrawOn', 'collideWith', 'die', 'alive');

@@ -4,7 +4,7 @@ var World = require('./world.js');
 var Keyboard = require('./keyboard.js');
 var Music = require('./music.js');
 var LevelOne = require('./level_one.js');
-_ = require('underscore');
+var _ = require('underscore');
 
 window.addEventListener('keyup', function(event) { Keyboard.onKeyup(event); }, false);
 window.addEventListener('keydown', function(event) { Keyboard.onKeydown(event); }, false);

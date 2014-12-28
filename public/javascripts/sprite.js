@@ -3,6 +3,7 @@ var Images = require('./images.js');
 var Laser = require('./laser.js');
 var Images = require('./images.js');
 var Sound = require('./sound.js');
+var _ = require('underscore');
 
 function Sprite(options){
   _.bindAll(this, 'moveForward', 'moveLeft', 'moveRight', 'move');
