@@ -1,14 +1,14 @@
 var Key = require('./keyboard.js');
 var Images = require('./images.js');
-var Sound = require('./sound.js');
 var Laser = require('./laser.js');
 var _ = require('underscore');
 
-function Rocketship(sprite){
+function Rocketship(sprite, eventAggregator){
   _.bindAll(this, 'redrawOn', 'collideWith', 'die', 'alive');
   this.sprite = sprite;
   this.dead = false;
   this.coolDown = 0;
+  this.eventAggregator = eventAggregator;
 }
 
 Rocketship.prototype.redrawOn = function(world) {
@@ -55,7 +55,7 @@ Rocketship.prototype.collideWith = function(otherProp) {
 Rocketship.prototype.die = function() {
   this.dead = true;
   this.sprite.changeImageTo(Images.explosion);
-  Sound.play(Sound.explosion);
+  this.eventAggregator.publish('rocketship-died', this);
 };
 
 Rocketship.prototype.alive = function(world) {

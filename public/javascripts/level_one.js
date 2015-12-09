@@ -4,12 +4,18 @@ var Heading = require('./heading.js');
 var Utility = require('./utility.js');
 var Images = require('./images.js');
 var Rocketship = require('./rocketship.js');
+var Sound = require('./sound.js');
 var _ = require('underscore');
 
-function LevelOne(world){
+function LevelOne(world, eventAggregator){
   _.bindAll(this, 'run', 'deployMonster', 'deployShip');
   this.world = world;
+  this.eventAggregator = eventAggregator;
   this.countdown = 0;
+
+  this.eventAggregator.subscribe('rocketship-died', function(){
+    Sound.play(Sound.explosion);
+  });
 }
 
 LevelOne.prototype.run = function(game) {
@@ -41,7 +47,7 @@ LevelOne.prototype.deployShip = function() {
     heading: Heading.NORTH,
     speed: 2,
     image: Images.load(Images.rocketship),
-  })));
+  }), this.eventAggregator));
 };
 
 module.exports = LevelOne;

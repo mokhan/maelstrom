@@ -2,14 +2,15 @@ describe("Rocketship", function() {
   var Rocketship = require('../public/javascripts/rocketship.js');
   var Key = require('../public/javascripts/keyboard.js');
   var Images = require('../public/javascripts/images.js');
-  var Sound = require('../public/javascripts/sound.js');
   var Laser = require('../public/javascripts/laser.js');
   var subject;
   var sprite;
+  var eventAggregator;
 
   beforeEach(function(){
     sprite = { moveLeft: null, moveRight: null, moveForward: null, changeImageTo: null, moveTo: null, fire: null, moveBack: null };
-    subject = new Rocketship(sprite);
+    eventAggregator = { publish: null };
+    subject = new Rocketship(sprite, eventAggregator);
   });
 
   describe ("redrawOn", function() {
@@ -23,6 +24,7 @@ describe("Rocketship", function() {
       spyOn(sprite, 'moveForward').and.returnValue(sprite);
       spyOn(sprite, 'moveBack').and.returnValue(sprite);
       spyOn(sprite, 'fire');
+      spyOn(eventAggregator, 'publish');
     });
 
     it ("renders the sprite in the world", function() {
@@ -115,7 +117,7 @@ describe("Rocketship", function() {
     beforeEach(function(){
       spyOn(sprite, 'changeImageTo');
       spyOn(sprite, 'moveTo');
-      spyOn(Sound, 'play');
+      spyOn(eventAggregator, 'publish');
     });
 
     it("changes the image to display", function() {
@@ -126,18 +128,14 @@ describe("Rocketship", function() {
     it ("dies", function() {
       subject.collideWith(object);
       expect(subject.dead).toEqual(true);
-    });
-
-    it("plays a sound", function() {
-      subject.collideWith(object);
-      expect(Sound.play).toHaveBeenCalledWith(Sound.explosion);
+      expect(eventAggregator.publish).toHaveBeenCalledWith('rocketship-died', subject);
     });
 
     it("ignores its own lasers", function() {
       var laser = new Laser({});
       subject.collideWith(laser);
 
-      expect(Sound.play).not.toHaveBeenCalledWith(Sound.explosion);
+      expect(eventAggregator.publish).not.toHaveBeenCalled();
       expect(subject.dead).toEqual(false);
       expect(sprite.changeImageTo).not.toHaveBeenCalledWith(Images.explosion);
     });
@@ -147,7 +145,6 @@ describe("Rocketship", function() {
         subject.dead = true;
 
         subject.collideWith(object);
-        expect(Sound.play).not.toHaveBeenCalledWith(Sound.explosion);
         expect(sprite.changeImageTo).not.toHaveBeenCalledWith(Images.explosion);
       });
     });
