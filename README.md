@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/mokhan/maelstrom.svg?branch=master)](https://travis-ci.org/mokhan/maelstrom)
 [![Code Climate](https://codeclimate.com/github/mokhan/maelstrom/badges/gpa.svg)](https://codeclimate.com/github/mokhan/maelstrom)
 [![Test Coverage](https://codeclimate.com/github/mokhan/maelstrom/badges/coverage.svg)](https://codeclimate.com/github/mokhan/maelstrom)
-[Demo](http://mokhan.github.io/maelstrom)
+[Demo](https://www.mokhan.ca/maelstrom/)
 
 ## Instructions
 
